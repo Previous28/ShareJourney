@@ -53,8 +53,19 @@ git push origin master
     "image": "string, 图片链接URL",
     "audio": "string, 音频链接URL",
     "video": "string, 视频链接URL",
-    "favorite": ["uid, 点赞用户的数据库ID"],
     "date": "date, 该记录发布时间的时间戳"
   }
 }
 ```
+点赞关系数据模型
+```json
+{
+  "favorite": {
+    "_id": "uid, 数据库ID",
+    "userId": "uid, 用户数据库ID",
+    "recordId": "uid, 记录数据库ID"
+  }
+}
+```
+
+![ShareJoureyDB](images-for-readme/ShareJourneyDB.png)
