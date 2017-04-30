@@ -1,0 +1,25 @@
+{
+  "name": "share_journey_server",
+  "version": "1.0.0",
+  "description": "Server for a simple UWP app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hongchh/ShareJourney.git"
+  },
+  "keywords": [
+    "Server",
+    "UWP",
+    "express"
+  ],
+  "author": "hongchh_sysu@qq.com  shujh_sysu@163.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hongchh/ShareJourney/issues"
+  },
+  "homepage": "https://github.com/hongchh/ShareJourney#readme"
+}
