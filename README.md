@@ -1,7 +1,7 @@
-Share Journey 嘻游记
+# Share Journey 嘻游记
 > TAGs：分享、旅行记录、UWP Midterm project
 
-# 1、协作规范
+## 1、协作规范
 #### 1.1、准备工作
 在github上fork我的仓库到你自己的github，将你fork之后自己的远程仓库克隆到本地，并在你的本地仓库上添加上游仓库，即源仓库(我的仓库)。
 ```bash
@@ -21,15 +21,15 @@ git pull upstream master
 git push origin master
 ```
 
-# 2、界面结构
+## 2、界面结构
 * MainPage: 主页面，显示多条旅行记录，点击某一条可以跳转到DetailPage
 * DeatilPage: 详情页面，显示某条记录的详情
 * UserPage: 用户个人信息页面，显示用户个人信息以及该用户发布的历史记录，点击某一条历史记录可以跳转到DetailPage
 * AuthPage: 登录注册页面，成功登陆之后跳转到MainPage
 
-![ShareJourey](images-for-readme/ShareJourney.png)
+![ShareJourney](images-for-readme/ShareJourney.png)
 
-# 3、数据模型
+## 3、数据模型
 用户数据模型
 ```json
 {
@@ -68,4 +68,4 @@ git push origin master
 }
 ```
 
-![ShareJoureyDB](images-for-readme/ShareJourneyDB.png)
+![ShareJourneyDB](images-for-readme/ShareJourneyDB.png)
