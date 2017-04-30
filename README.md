@@ -69,3 +69,16 @@ git push origin master
 ```
 
 ![ShareJourneyDB](images-for-readme/ShareJourneyDB.png)
+
+## 4、文件结构
+```txt
+├─images-for-readme: 存放README中需要的图片文件
+├─Server: 服务端源码
+│   ├─model: 数据模型
+│   ├─router: 接口路由
+│   ├─index.js: 服务器配置和启动文件
+│   └─package.json: NodeJS包管理文件
+├─UWPApp: UWP应用源码
+├─.gitignore: git忽略项配置文件
+└─README.md: 项目文档
+```
