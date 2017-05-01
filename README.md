@@ -26,6 +26,7 @@ git push origin master
 * DeatilPage: 详情页面，显示某条记录的详情
 * UserPage: 用户个人信息页面，显示用户个人信息以及该用户发布的历史记录，点击某一条历史记录可以跳转到DetailPage
 * AuthPage: 登录注册页面，成功登陆之后跳转到MainPage
+* EditPage: 编辑界面，发布记录的时候跳转到该界面，发布成功之后跳到DetailPage
 
 ![ShareJourney](images-for-readme/ShareJourney.png)
 
@@ -53,7 +54,8 @@ git push origin master
     "image": "string, 图片链接URL",
     "audio": "string, 音频链接URL",
     "video": "string, 视频链接URL",
-    "date": "date, 该记录发布时间的时间戳"
+    "date": "date, 该记录发布时间的时间戳",
+    "favoriteNum": "int, 点赞数量"
   }
 }
 ```
@@ -79,6 +81,35 @@ git push origin master
 │   ├─index.js: 服务器配置和启动文件
 │   └─package.json: NodeJS包管理文件
 ├─UWPApp: UWP应用源码
+│   ├─UWPApp: UWP应用源码
+│   │   ├─Assets: 静态资源文件，例如图片
+│   │   ├─Helper: 工具库
+│   │   │   ├─FileHelper.cs: 封装文件操作相关工具方法
+│   │   │   └─NetworkHelper.cs: 封装网络访问相关工具方法
+│   │   ├─Model: 应用的数据模型
+│   │   │   └─Record.cs: 记录的数据模型
+│   │   ├─Properties
+│   │   ├─Store: 应用的全局数据状态管理
+│   │   │   └─RecordStore.cs: 所有记录的数据状态管理
+│   │   ├─View: 应用的视图文件
+│   │   │   ├─AuthPage.xaml: 权限界面
+│   │   │   ├─AuthPage.xaml.cs: 权限界面的业务逻辑
+│   │   │   ├─DetailPage.xaml: 详情界面
+│   │   │   ├─DetailPage.xaml.cs: 详情界面的业务逻辑
+│   │   │   ├─EditPage.xaml: 编辑界面
+│   │   │   ├─EditPage.xaml.cs: 编辑界面的业务逻辑
+│   │   │   ├─MainPage.xaml: 主界面
+│   │   │   ├─MainPage.xaml.cs: 主界面的业务逻辑
+│   │   │   ├─UserPage.xaml: 用户界面
+│   │   │   └─UserPage.xaml.cs: 用户界面的业务逻辑
+│   │   ├─App.xaml: 最外层视图容器
+│   │   ├─App.xaml.cs: 应用的启动文件
+│   │   ├─Package.appxmanifest
+│   │   ├─project.json
+│   │   ├─project.lock.json
+│   │   ├─UWPApp_TemproaryKey.pfx
+│   │   └─UWPApp.csproj
+│   └─UWPApp.sln: 解决方案管理文件
 ├─.gitignore: git忽略项配置文件
 └─README.md: 项目文档
 ```
