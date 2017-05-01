@@ -5,9 +5,41 @@
     xmlns:local="using:UWPApp.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Assets/main.jpg" Stretch="Fill"/>
+        </Grid.Background>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--顶部导航栏与头像-->
+        <Grid Height="60" Grid.Row="0" Background="#66000000" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <CommandBar Grid.Column="0" Background="Transparent">
+                <AppBarButton Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
+                <AppBarButton Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
+                <AppBarButton Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
+                <AppBarButton Icon="Calendar" Label="详情" x:Name="detail" Click="goToOtherPage"/>
+                <AppBarButton Icon="NewWindow" Label="登录" x:Name="auth" Click="goToOtherPage"/>
+            </CommandBar>
+
+            <Ellipse Grid.Column="2" Width="40" Height="40" Margin="0 0 10 0">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
     </Grid>
 </Page>
