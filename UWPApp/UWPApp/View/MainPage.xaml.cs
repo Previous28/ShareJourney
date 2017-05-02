@@ -19,8 +19,11 @@ namespace UWPApp.View
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            Data = Store.RecordStore.getInstance();
         }
+
+        private Store.RecordStore Data;
 
         // 页面跳转
         private void goToOtherPage(object sender, RoutedEventArgs e)
