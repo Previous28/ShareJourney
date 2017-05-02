@@ -1,6 +1,8 @@
 .DS_Store
 Server/node_modules/
 Server/data/
+Server/static/
+Server/npm-debug.log
 UWPApp/.vs/
 UWPApp/UWPApp/bin/
 UWPApp/UWPApp/obj/

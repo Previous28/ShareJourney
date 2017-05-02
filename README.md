@@ -76,8 +76,14 @@ git push origin master
 ```txt
 ├─images-for-readme: 存放README中需要的图片文件
 ├─Server: 服务端源码
+│   ├─api: RESTful接口
+│   │   ├─auth.js: 登录注册等权限相关api
+│   │   ├─record.js: 发布记录、查看记录等api
+│   │   └─upload.js: 文件上传api
 │   ├─model: 数据模型
-│   ├─router: 接口路由
+│   │   ├─user.js: 用户数据操作相关接口
+│   │   ├─record.js: 记录数据操作相关接口
+│   │   └─file.js: 文件操作相关接口
 │   ├─static: 图片、音频、视频等静态文件
 │   ├─index.js: 服务器配置和启动文件
 │   └─package.json: NodeJS包管理文件
