@@ -78,6 +78,7 @@ git push origin master
 ├─Server: 服务端源码
 │   ├─model: 数据模型
 │   ├─router: 接口路由
+│   ├─static: 图片、音频、视频等静态文件
 │   ├─index.js: 服务器配置和启动文件
 │   └─package.json: NodeJS包管理文件
 ├─UWPApp: UWP应用源码
