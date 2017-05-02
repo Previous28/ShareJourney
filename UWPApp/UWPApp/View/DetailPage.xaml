@@ -7,7 +7,78 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-    </Grid>
+            <Grid Grid.Row="0" Width="930">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <MediaElement Grid.Column="0" x:Name="mediaElement" AutoPlay = "False" Margin="40, 50, 0, 30"
+                          HorizontalAlignment="Left" VerticalAlignment="Top" Height="350" Width="580"
+                          Source="\\Mac\Home\Desktop\Movie\青春之旅真人版.BD1280超清日语中字.mp4"/>
+
+                <TextBlock Grid.Column="1" Margin="0, 50, 40, 30" Width="240" TextWrapping="Wrap" FontFamily="微软雅黑" >
+                杭州是我国七大古都之一，风景秀丽，被人誉为“上有天堂，下有苏杭”。杭州是一个旅游资源非常丰富的城市。
+                其最为出名的为西湖，古人称赞其为“淡妆浓抹总相宜”。此外杭州还有著名的虎跑泉、灵隐-飞来峰、六和塔、
+                三潭印月、苏堤春晓、断桥残雪、平湖秋月、岳庙、孤山等风景名胜。杭州有很多地方特色的特产，如
+                杭州丝绸、龙井茶叶、天竺筷、昌化山核桃、杭菊、真丝绡、径山香茗、西湖绸伞、古香缎、天目云雾、张小泉
+                剪刀、杭州刺绣、杭扇、都锦生织锦等。其中杭扇与杭州丝绸、杭州龙井茶一同被誉为“杭州三绝”。
+                </TextBlock>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="AliceBlue" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Width="920">
+                    <Button Margin="20,20,0,0" Name="favouriteButton" Height="40" Width="90">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Assets/favourite.png" Stretch="Fill"/>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="1" Width="920">
+                    <Line Width="250" Stretch="Fill" Stroke="Gray" Margin="20 20 20 20" StrokeThickness="1" X1="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </Grid>
+
+                <Grid Grid.Row="2" Width="920">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Ellipse Grid.Row="0" Width="80" Height="80" Margin="60 0 10 0" HorizontalAlignment="Left">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="160 35 10 0">点赞用户1</TextBlock>
+
+                    <Ellipse Grid.Row="0" Width="80" Height="80" Margin="0 0 130 0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="70 35 10 0">点赞用户2</TextBlock>
+
+                    <Ellipse Grid.Row="0" Width="80" Height="80" Margin="10 0 170 0" HorizontalAlignment="Right">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="10 35 83 0">点赞用户3</TextBlock>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>
