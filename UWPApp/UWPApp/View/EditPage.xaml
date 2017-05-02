@@ -8,6 +8,120 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!--顶部导航栏与头像-->
+        <Grid Height="60" Grid.Row="0" Background="AliceBlue" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <CommandBar Grid.Column="0" Background="AliceBlue">
+                <AppBarButton Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
+                <AppBarButton Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
+                <AppBarButton Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
+                <AppBarButton Icon="Calendar" Label="详情" x:Name="detail" Click="goToOtherPage"/>
+                <AppBarButton Icon="NewWindow" Label="登录" x:Name="auth" Click="goToOtherPage"/>
+            </CommandBar>
+
+            <Ellipse Grid.Column="2" Width="40" Height="40" Margin="0 0 10 0">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+
+        <Grid Grid.Row="1" Width="670" Background="SkyBlue" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Click="cancelClick" Height="40" Width="80">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/cancel.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="2" Click="postClick" Height="40" Width="80">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/post.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <RichEditBox x:Name="details" Height="280" Width="670" Margin="20, 0, 20, 20" TabIndex="0"></RichEditBox>
+        </Grid>
+
+        <Grid Grid.Row="3"  Width="670">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="223"/>
+                <ColumnDefinition Width="223"/>
+                <ColumnDefinition Width="223"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                    
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../Assets/imageForEditPage1.png" Margin="0, 0, 3, 3"></Image>
+                    <Image Grid.Column="1" Source="../Assets/imageForEditPage1.png" Margin="3, 0, 0, 3" ></Image>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../Assets/imageForEditPage1.png" Margin="0, 3, 3, 0"></Image>
+                    <Image Grid.Column="1" Source="../Assets/imageForEditPage1.png" Margin="3, 3, 0, 0"></Image>
+                </Grid>
+            </Grid>
+
+            <Image Grid.Column="1" Source="../Assets/imageForEditPage2.png"></Image>
+            <Image Grid.Column="2" Source="../Assets/imageForEditPage3.png"></Image>
+        </Grid>
+
+        <Grid Grid.Row="4"  Width="670">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="223"/>
+                <ColumnDefinition Width="223"/>
+                <ColumnDefinition Width="223"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Click="pickPicture" Height="45" Width="100" HorizontalAlignment="Center">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/pickPicture.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+
+            <Button Grid.Column="1" Click="pickMusic" Height="45" Width="100" HorizontalAlignment="Center">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/pickMusic.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+
+            <Button Grid.Column="2" Click="pickVideo" Height="45" Width="100" HorizontalAlignment="Center">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/pickVideo.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+
+        </Grid>
     </Grid>
 </Page>

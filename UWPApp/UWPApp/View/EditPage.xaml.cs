@@ -26,5 +26,56 @@ namespace UWPApp.View
         {
             this.InitializeComponent();
         }
+
+        // 页面跳转
+        private void goToOtherPage(object sender, RoutedEventArgs e)
+        {
+            AppBarButton btn = sender as AppBarButton;
+            if (btn.Name == "main")
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(MainPage));
+            }
+            else if (btn.Name == "user")
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(UserPage));
+            }
+            else if (btn.Name == "edit")
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(EditPage));
+            }
+            else if (btn.Name == "detail")
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(DetailPage));
+            }
+            else
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(AuthPage));
+            }
+        }
+
+        private void pickPicture(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void pickMusic(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void pickVideo(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cancelClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void postClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
