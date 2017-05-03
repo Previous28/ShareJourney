@@ -5,9 +5,14 @@
     xmlns:local="using:UWPApp.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Assets/main.jpg" Stretch="Fill"/>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -17,29 +22,35 @@
         </Grid.RowDefinitions>
 
         <!--顶部导航栏与头像-->
-        <Grid Height="60" Grid.Row="0" Background="AliceBlue" VerticalAlignment="Center">
+        <Grid Height="60" Grid.Row="0" Background="#99000000" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <CommandBar Grid.Column="0" Background="AliceBlue">
-                <AppBarButton Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
-                <AppBarButton Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
-                <AppBarButton Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
-                <AppBarButton Icon="Calendar" Label="详情" x:Name="detail" Click="goToOtherPage"/>
-                <AppBarButton Icon="NewWindow" Label="登录" x:Name="auth" Click="goToOtherPage"/>
-            </CommandBar>
+            <AppBarButton Grid.Column="0" Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="1" Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="2" Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="3" Icon="Calendar" Label="详情" x:Name="detail" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="4" Icon="NewWindow" Label="登录" x:Name="auth" Click="goToOtherPage"/>
 
-            <Ellipse Grid.Column="2" Width="40" Height="40" Margin="0 0 10 0">
+            <Ellipse Grid.Column="6" Width="40" Height="40" Margin="0 0 20 0">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
+        
+        <!--标题栏底部白边-->
+        <Line Grid.Row="1" Stroke="White" StrokeThickness="3" X2="1500"/>
 
-        <Grid Grid.Row="1" Width="670" Background="SkyBlue" Margin="0 10 0 0">
+        <!--发布、取消栏-->
+        <Grid Grid.Row="1" Width="670" Background="#66000000" Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -50,17 +61,19 @@
                     <ImageBrush ImageSource="../Assets/cancel.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <Button Grid.Column="2" Click="postClick" Height="40" Width="80">
+            <Button Grid.Column="2" Click="publishClick" Height="40" Width="80">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Assets/post.png" Stretch="Fill"/>
+                    <ImageBrush ImageSource="../Assets/publish.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
         </Grid>
 
+        <!--用于输入文本的富文本框-->
         <Grid Grid.Row="2">
-            <RichEditBox x:Name="details" Height="280" Width="670" Margin="20, 0, 20, 20" TabIndex="0"></RichEditBox>
+            <RichEditBox x:Name="details" Height="280" Width="670" Margin="20, 0, 20, 20"></RichEditBox>
         </Grid>
 
+        <!--模块：选择分享图片、视频、音乐-->
         <Grid Grid.Row="3"  Width="670">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="223"/>
@@ -68,6 +81,7 @@
                 <ColumnDefinition Width="223"/>
             </Grid.ColumnDefinitions>
 
+            <!--暂存分享的图片-->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
@@ -93,10 +107,13 @@
                 </Grid>
             </Grid>
 
+            <!--暂存分享的音乐-->
             <Image Grid.Column="1" Source="../Assets/imageForEditPage2.png"></Image>
+            <!--暂存分享的小视频-->
             <Image Grid.Column="2" Source="../Assets/imageForEditPage3.png"></Image>
         </Grid>
 
+        <!--模块：选择文件（图片、音乐、视频）-->
         <Grid Grid.Row="4"  Width="670">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="223"/>
@@ -104,18 +121,21 @@
                 <ColumnDefinition Width="223"/>
             </Grid.ColumnDefinitions>
 
+            <!--选择图片按钮-->
             <Button Grid.Column="0" Click="pickPicture" Height="45" Width="100" HorizontalAlignment="Center">
                 <Button.Background>
                     <ImageBrush ImageSource="../Assets/pickPicture.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
 
+            <!--选择音乐按钮-->
             <Button Grid.Column="1" Click="pickMusic" Height="45" Width="100" HorizontalAlignment="Center">
                 <Button.Background>
                     <ImageBrush ImageSource="../Assets/pickMusic.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
 
+            <!--选择视频按钮-->
             <Button Grid.Column="2" Click="pickVideo" Height="45" Width="100" HorizontalAlignment="Center">
                 <Button.Background>
                     <ImageBrush ImageSource="../Assets/pickVideo.png" Stretch="Fill"/>

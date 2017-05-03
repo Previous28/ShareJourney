@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,5 +28,24 @@ namespace UWPApp.View
         {
             this.InitializeComponent();
         }
+
+        private void SeekMediaPosition(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            int SliderValue = (int)timelineSlider.Value;
+
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
+            mediaElement.Position = ts;
+        }
+
+        private void playClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void stopClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+
 }
