@@ -2,7 +2,6 @@ const multer = require('multer')
 const image = multer({ dest: '../static/image' })
 const audio = multer({ dest: '../static/audio' })
 const video = multer({ dest: '../static/video' })
-const ObjectId = require('mongoose').Schema.ObjectId
 const Online = require('../model/online')
 const File = require('../model/file')
 const path = require('path')
@@ -10,7 +9,7 @@ const path = require('path')
 let api = require('express').Router()
 
 function upload(req, res) {
-  Online.findOne({ _id: new ObjectId(req.params.ObjectId) }).then(online => {
+  Online.findById(req.params.ObjectId).then(online => {
     if (!online) {
       File.delete(path.join(__dirname, '../' + req.file.path))
       res.json({ result: 'error' })
