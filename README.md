@@ -83,6 +83,7 @@ git push origin master
 │   ├─model: 数据模型
 │   │   ├─user.js: 用户数据操作相关接口
 │   │   ├─record.js: 记录数据操作相关接口
+│   │   ├─favorite.js: 点赞关系数据操作相关接口
 │   │   └─file.js: 文件操作相关接口
 │   ├─static: 图片、音频、视频等静态文件
 │   ├─index.js: 服务器配置和启动文件
