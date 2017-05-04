@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-mongoose.connect('mongodb://localhost:27017/user')
+mongoose.Promise = global.Promise
+mongoose.createConnection('mongodb://localhost:27017/')
 
 const UserSchema = new Schema({
   avatar: String,
