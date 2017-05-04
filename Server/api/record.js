@@ -96,4 +96,15 @@ api.get('/favorite', (req, res) => {
   })
 })
 
+// 查找某个用户的所有记录
+api.get('/records-of-user', (req, res) => {
+  if (!req.params.userId) {
+    res.json({ result: 'error' })
+  } else {
+    Record.find({ userId: new ObjectId(req.params.userId) }).then(records => {
+      res.json({ result: 'ok', records })
+    })
+  }
+})
+
 module.exports = api
