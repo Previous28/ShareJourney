@@ -18,13 +18,19 @@ module.exports = (User, Online) => {
               new Online({ userId: user._id }).save().then(online => {
                 res.json({
                   result: 'ok',
-                  onlineId: online._id
+                  onlineId: online._id,
+                  username: user.username,
+                  avatar: user.avatar,
+                  nickname: user.nickname
                 })
               })
             } else {
               res.json({
                 result: 'ok',
-                onlineId: online._id
+                onlineId: online._id,
+                username: user.username,
+                avatar: user.avatar,
+                nickname: user.nickname
               })
             }
           })
@@ -75,6 +81,18 @@ module.exports = (User, Online) => {
     } else {
       res.json({ result: 'error' })
     }
+  })
+
+  // 改昵称
+  api.get('/nickname', (req, res) => {
+    Online.findById(req.query.onlineId).then(online => {
+      if (!online) {
+        res.json({ result: 'error' })
+      } else {
+        User.findByIdAndUpdate(online.userId, { $set: { nickname: req.query.nickname } })
+        .then(() => res.json({ result: 'ok' }))
+      }
+    }).catch(() => res.json({ result: 'error' }))
   })
 
   return api

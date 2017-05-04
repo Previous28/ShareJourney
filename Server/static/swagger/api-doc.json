@@ -110,7 +110,39 @@
           {
             "name": "onlineId",
             "in": "query",
-            "description": "在线Id",
+            "description": "用户在线Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/auth/nickname": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "用户改昵称",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nickname",
+            "in": "query",
+            "description": "新昵称",
             "required": true,
             "type": "string"
           }
