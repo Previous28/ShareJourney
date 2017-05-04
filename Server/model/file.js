@@ -1,7 +1,7 @@
 const fs = require('fs')
-let File = {}
+let FileOP = {}
 
-File.delete = (path) => {
+FileOP.delete = (path) => {
   return new Promise((resolve, reject) => {
     fs.unlink(path, (err) => {
       !err ? resolve() : reject(err)
@@ -9,7 +9,7 @@ File.delete = (path) => {
   })
 }
 
-File.rename = (oldPath, newPath) => {
+FileOP.rename = (oldPath, newPath) => {
   return new Promise((resolve, reject) => {
     fs.rename(oldPath, newPath, (err) => {
       !err ? resolve() : reject(err)
@@ -17,4 +17,4 @@ File.rename = (oldPath, newPath) => {
   })
 }
 
-module.exports = File
+module.exports = FileOP
