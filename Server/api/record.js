@@ -11,9 +11,6 @@ module.exports = (Record, Online, Favorite, User) => {
         new Record({
           title: req.body.title,
           content: req.body.content,
-          image: req.body.image,
-          audio: req.body.audio,
-          video: req.body.video,
           userId: online.userId,
           favoriteNum: 0,
           date: Date.now()

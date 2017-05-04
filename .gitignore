@@ -2,6 +2,7 @@
 Server/node_modules/
 Server/data/
 Server/static/audio/
+Server/static/avatar/
 Server/static/image/
 Server/static/video/
 Server/npm-debug.log

@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/static', express.static(path.join(__dirname, './static')))
 app.use('/api/auth', require('./api/auth')(User, Online))
 app.use('/api/record', require('./api/record')(Record, Online, Favorite, User))
-app.use('/api/upload', require('./api/upload')(Online, FileOP))
+app.use('/api/upload', require('./api/upload')(Online, FileOP, User, Record))
 app.listen(port)
 
 console.log("http://localhost:" + port)

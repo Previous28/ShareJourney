@@ -334,6 +334,20 @@
             "description": "要上传的图片",
             "required": true,
             "type": "file"
+          },
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "对应的记录ID",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -362,6 +376,20 @@
             "description": "要上传的音频",
             "required": true,
             "type": "file"
+          },
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "对应的记录ID",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -390,6 +418,55 @@
             "description": "要上传的视频",
             "required": true,
             "type": "file"
+          },
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "对应的记录ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/upload/avatar": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "上传头像",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "avatar",
+            "in": "formData",
+            "description": "要上传的头像",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线ID",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
