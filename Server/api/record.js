@@ -15,6 +15,7 @@ module.exports = (Record, Online, Favorite, User) => {
           audio: req.body.audio,
           video: req.body.video,
           userId: online.userId,
+          favoriteNum: 0,
           date: Date.now()
         }).save().then(record => res.json({ result: 'ok', record }))
       }
@@ -48,24 +49,24 @@ module.exports = (Record, Online, Favorite, User) => {
       for (let i = 0; i < records.length; ++i) {
         ((i) => {
           User.findById(records[i].userId).then(user => {
-            user ? records[i].userAvatar = user.avatar : ''
+            user ? records[i]._doc.userAvatar = user.avatar : ''
             count > 1 ? --count : res.json({ result: 'ok', records })
           })
         })(i)
       }
-    })
+    }).catch(() => res.json({ result: 'error' }))
   })
 
   // 查看某条记录
   api.get('/detail', (req, res) => {
     Record.findById(req.query.recordId).then(record => {
-      record.favoriter = []
-      Favorite.find({ _id: req.query.recordId }).then(favorites => {
+      record._doc.favoriter = []
+      Favorite.find({ recordId: req.query.recordId }).then(favorites => {
         let count = favorites.length;
         count ? '' : res.json({ result: 'ok', record })
         for (let i = 0; i < favorites.length; ++i) {
           User.findById(favorites[i].userId).then(user => {
-            user ? record.favoriter.push(user.avatar) : ''
+            user ? record._doc.favoriter.push(user.avatar) : ''
             count > 1 ? --count : res.json({ result: 'ok', record })
           })
         }
@@ -79,10 +80,12 @@ module.exports = (Record, Online, Favorite, User) => {
       if (!online) {
         res.json({ result: 'error' })
       } else {
-        Favorite.findOne({ userId: online.userId }).then(favorite => {
+        Favorite.findOne({ userId: online.userId, recordId: req.query.recordId }).then(favorite => {
           if (!favorite) {
-            new Favorite({ userId: online.userId, recordId: req.query.recordId })
-            .save().then(() => { res.json({ result: 'ok' }) })
+            Record.findByIdAndUpdate(req.query.recordId, { $inc: { favoriteNum: 1 } }).then(() => {
+              new Favorite({ userId: online.userId, recordId: req.query.recordId })
+              .save().then(() => res.json({ result: 'ok' }))
+            }).catch(() => res.json({ result: 'error' }))
           } else {
             res.json({ result: 'ok' })
           }
