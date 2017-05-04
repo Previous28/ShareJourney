@@ -171,9 +171,9 @@
             "type": "string"
           },
           {
-            "name": "userId",
+            "name": "onlineId",
             "in": "formData",
-            "description": "用户ID",
+            "description": "用户在线ID",
             "required": true,
             "type": "string"
           }

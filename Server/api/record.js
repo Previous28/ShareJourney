@@ -15,31 +15,29 @@ module.exports = (Record, Online, Favorite, User) => {
           audio: req.body.audio,
           video: req.body.video,
           userId: online.userId,
-          date: new Date().getTime()
-        }).save().then(record => {
-          res.json({ result: 'ok', record })
-        })
+          date: Date.now()
+        }).save().then(record => res.json({ result: 'ok', record }))
       }
-    })
+    }).catch(() => res.json({ result: 'error' }))
   })
 
   // 删除记录
   api.get('/delete', (req, res) => {
-    Online.findById(req.params.onlineId).then(online => {
+    Online.findById(req.query.onlineId).then(online => {
       if (!online) {
         res.json({ result: 'error' })
       } else {
-        Record.findById(req.params.recordId).then(record => {
-          if (record.userId != online.userId) {
+        Record.findById(req.query.recordId).then(record => {
+          if (record.userId.toString() !== online.userId.toString()) {
             res.json({ result: 'error' })
           } else {
-            Record.remove({ _id: new ObjectId(req.params.recordId) }).then(() => {
+            Record.findByIdAndRemove(req.query.recordId).then(() => {
               res.json({ result: 'ok' })
             })
           }
-        })
+        }).catch(() => res.json({ result: 'error' }))
       }
-    })
+    }).catch(() => res.json({ result: 'error' }))
   })
 
   // 查看所有记录
@@ -51,7 +49,7 @@ module.exports = (Record, Online, Favorite, User) => {
         ((i) => {
           User.findById(records[i].userId).then(user => {
             user ? records[i].userAvatar = user.avatar : ''
-            count ? --count : res.json({ result: 'ok', records })
+            count > 1 ? --count : res.json({ result: 'ok', records })
           })
         })(i)
       }
@@ -60,47 +58,47 @@ module.exports = (Record, Online, Favorite, User) => {
 
   // 查看某条记录
   api.get('/detail', (req, res) => {
-    Record.findById(req.params.recordId).then(record => {
+    Record.findById(req.query.recordId).then(record => {
       record.favoriter = []
-      Favorite.find({ _id: new ObjectId(req.params.recordId) }).then(favorites => {
+      Favorite.find({ _id: req.query.recordId }).then(favorites => {
         let count = favorites.length;
         count ? '' : res.json({ result: 'ok', record })
         for (let i = 0; i < favorites.length; ++i) {
           User.findById(favorites[i].userId).then(user => {
             user ? record.favoriter.push(user.avatar) : ''
-            count ? --count : res.json({ result: 'ok', record })
+            count > 1 ? --count : res.json({ result: 'ok', record })
           })
         }
-      })
-    })
+      }).catch(() => res.json({ result: 'error' }))
+    }).catch(() => res.json({ result: 'error' }))
   })
 
   // 点赞
   api.get('/favorite', (req, res) => {
-    Online.findById(req.params.onlineId).then(online => {
+    Online.findById(req.query.onlineId).then(online => {
       if (!online) {
         res.json({ result: 'error' })
       } else {
         Favorite.findOne({ userId: online.userId }).then(favorite => {
           if (!favorite) {
-            new Favorite({ userId: online.userId, recordId: req.params.recordId })
+            new Favorite({ userId: online.userId, recordId: req.query.recordId })
             .save().then(() => { res.json({ result: 'ok' }) })
           } else {
             res.json({ result: 'ok' })
           }
         })
       }
-    })
+    }).catch(() => res.json({ result: 'error' }))
   })
 
   // 查找某个用户的所有记录
   api.get('/records-of-user', (req, res) => {
-    if (!req.params.userId) {
+    if (!req.query.userId) {
       res.json({ result: 'error' })
     } else {
-      Record.find({ userId: new ObjectId(req.params.userId) }).then(records => {
+      Record.find({ userId: req.query.userId }).then(records => {
         res.json({ result: 'ok', records })
-      })
+      }).catch(() => res.json({ result: 'error' }))
     }
   })
 
