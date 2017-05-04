@@ -73,7 +73,7 @@ namespace UWPApp.View
 
         }
 
-        private void postClick(object sender, RoutedEventArgs e)
+        private void publishClick(object sender, RoutedEventArgs e)
         {
 
         }
