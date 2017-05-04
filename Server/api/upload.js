@@ -1,10 +1,10 @@
 const multer = require('multer')
-const image = multer({ dest: '../static/image' })
-const audio = multer({ dest: '../static/audio' })
-const video = multer({ dest: '../static/video' })
+const path = require('path')
+const image = multer({ dest: path.join(__dirname, '../static/image') })
+const audio = multer({ dest: path.join(__dirname, '../static/audio') })
+const video = multer({ dest: path.join(__dirname, '../static/video') })
 const Online = require('../model/online')
 const File = require('../model/file')
-const path = require('path')
 
 let api = require('express').Router()
 

@@ -1,0 +1,404 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "ShareJourney 项目服务端API文档",
+    "version": "1.0.0",
+    "title": "ShareJourney API",
+    "contact": {
+      "email": "hongchh_sysu@qq.com"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "用户权限模块"
+    },
+    {
+      "name": "Record",
+      "description": "分享记录模块"
+    },
+    {
+      "name": "Upload",
+      "description": "文件上传模块"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/auth/signin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "用户登录",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "用户名",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "密码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "用户注册",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "用户名",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "密码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/auth/signout": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "退出登录状态",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "在线Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/record/post": {
+      "post": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "发布1条记录",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "标题",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "formData",
+            "description": "正文",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "description": "图片链接",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "audio",
+            "in": "formData",
+            "description": "音频链接",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "video",
+            "in": "formData",
+            "description": "视频链接",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "formData",
+            "description": "用户ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/record/delete": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "删除某条记录",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "要删除的那条记录的ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/record/all": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "查看所有记录",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/record/detail": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "查看某条记录的详情",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "要查看详情的记录的ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/record/favorite": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "给某条记录点赞",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "onlineId",
+            "in": "query",
+            "description": "用户在线ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "recordId",
+            "in": "query",
+            "description": "要点赞的记录的ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/record/records-of-user": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "获取某个用户的所有记录",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "用户ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/upload/image": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "上传图片",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "formData",
+            "description": "要上传的图片",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/upload/audio": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "上传音频",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "audio",
+            "in": "formData",
+            "description": "要上传的音频",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/upload/video": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "上传视频",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "video",
+            "in": "formData",
+            "description": "要上传的视频",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  }
+}
