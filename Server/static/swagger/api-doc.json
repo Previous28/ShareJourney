@@ -33,6 +33,7 @@
           "Auth"
         ],
         "summary": "用户登录",
+        "description": "登录需要提供账号密码，成功登录之后将返回用户昵称、头像链接等基本信息，以及一个onlineId标明用户在线状态。",
         "consumes": [
           "multipart/form-data"
         ],
@@ -68,6 +69,7 @@
           "Auth"
         ],
         "summary": "用户注册",
+        "description": "注册需要提供账号、密码和昵称3项信息，成功注册之后将返回用户基本信息以及一个onlineId标明用户在线状态。",
         "consumes": [
           "multipart/form-data"
         ],
@@ -86,6 +88,13 @@
             "name": "password",
             "in": "formData",
             "description": "密码",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nickname",
+            "in": "formData",
+            "description": "昵称",
             "required": true,
             "type": "string"
           }
@@ -128,6 +137,7 @@
           "Auth"
         ],
         "summary": "用户改昵称",
+        "description": "需要提供在线ID以及新昵称，只有在线的用户才能修改昵称。无需提供用户ID，后台会根据在线ID找到对应的用户。",
         "produces": [
           "application/json"
         ],
@@ -160,6 +170,7 @@
           "Record"
         ],
         "summary": "发布1条记录",
+        "description": "需要提供标题、正文、在线ID这3个字段，只有在线的用户才能发布记录。成功发布之后会返回这条记录的基本信息。如果是带有图片、音频或视频的记录，先调用本接口发布一条新记录，然后拿着本接口返回的记录ID去调用文件模块的上传接口即可。",
         "consumes": [
           "multipart/form-data"
         ],
@@ -179,27 +190,6 @@
             "in": "formData",
             "description": "正文",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "image",
-            "in": "formData",
-            "description": "图片链接",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "audio",
-            "in": "formData",
-            "description": "音频链接",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "video",
-            "in": "formData",
-            "description": "视频链接",
-            "required": false,
             "type": "string"
           },
           {
@@ -223,6 +213,7 @@
           "Record"
         ],
         "summary": "删除某条记录",
+        "description": "需要提供在线ID和记录ID，只有在线用户才能删除记录。后台会根据在线ID找到用户ID，确保用户只能删除自己发布的记录。",
         "produces": [
           "application/json"
         ],
@@ -255,6 +246,7 @@
           "Record"
         ],
         "summary": "查看所有记录",
+        "description": "无需参数，本接口无论是否在线都可以调用。",
         "produces": [
           "application/json"
         ],
@@ -271,6 +263,7 @@
           "Record"
         ],
         "summary": "查看某条记录的详情",
+        "description": "本接口无论是否在线都可以调用。返回的详情中除了记录的内容之外还将包括所有点赞用户的头像链接。",
         "produces": [
           "application/json"
         ],
@@ -296,6 +289,7 @@
           "Record"
         ],
         "summary": "给某条记录点赞",
+        "description": "需要提供在线ID和记录ID，只有在线的用户才能给某条记录点赞。",
         "produces": [
           "application/json"
         ],
@@ -328,6 +322,7 @@
           "Record"
         ],
         "summary": "获取某个用户的所有记录",
+        "description": "需要提供用户ID。接口返回某个用户发布过的所有记录，无论是否在线都可以调用本接口。",
         "produces": [
           "application/json"
         ],
@@ -353,6 +348,7 @@
           "Upload"
         ],
         "summary": "上传图片",
+        "description": "需要提供在线ID和记录ID以及图片文件，用户发布附带图片的记录后，调用本接口给相应记录附带上图片",
         "consumes": [
           "multipart/form-data"
         ],
@@ -395,6 +391,7 @@
           "Upload"
         ],
         "summary": "上传音频",
+        "description": "需要提供在线ID和记录ID以及音频文件，用户发布附带音频的记录后，调用本接口给相应记录附带上音频",
         "consumes": [
           "multipart/form-data"
         ],
@@ -437,6 +434,7 @@
           "Upload"
         ],
         "summary": "上传视频",
+        "description": "需要提供在线ID和记录ID以及视频文件，用户发布附带视频的记录后，调用本接口给相应记录附带上视频",
         "consumes": [
           "multipart/form-data"
         ],
@@ -479,6 +477,7 @@
           "Upload"
         ],
         "summary": "上传头像",
+        "description": "需要提供头像文件以及在线ID，用户可以通过调用本接口更换头像。",
         "consumes": [
           "multipart/form-data"
         ],

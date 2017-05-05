@@ -46,6 +46,7 @@ module.exports = (User, Online) => {
   // 注册
   api.post('/signup', (req, res) => {
     if (req.body.username && req.body.password &&
+        req.body.nickname && req.body.nickname.length > 0 &&
         req.body.username.length > 7 && req.body.password.length > 7 &&
         req.body.username.length < 16 && req.body.password.length < 16) {
       User.findOne({ username: req.body.username }).then(user => {
@@ -55,13 +56,16 @@ module.exports = (User, Online) => {
           new User({
             username: req.body.username,
             password: md5(req.body.password),
-            nickname: 'default',
-            avatar: 'default'
+            nickname: req.body.nickname,
+            avatar: '/static/avatar/default.png'
           }).save().then(user => {
             new Online({ userId: user._id }).save().then(online => {
               res.json({
                 result: 'ok',
-                onlineId: online._id
+                onlineId: online._id,
+                username: user.username,
+                avatar: user.avatar,
+                nickname: user.nickname
               })
             })
           })
@@ -86,7 +90,7 @@ module.exports = (User, Online) => {
   // 改昵称
   api.get('/nickname', (req, res) => {
     Online.findById(req.query.onlineId).then(online => {
-      if (!online) {
+      if (!online || req.query.nickname.length < 1) {
         res.json({ result: 'error' })
       } else {
         User.findByIdAndUpdate(online.userId, { $set: { nickname: req.query.nickname } })

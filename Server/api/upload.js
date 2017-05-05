@@ -42,8 +42,11 @@ module.exports = (Online, FileOP, User, Record) => {
             User.findByIdAndUpdate(online.userId, { $set: { avatar: newName } })
             .then(() => res.json({ result: 'ok', path: newName }))
           } else {// 上传其他
-            let update = type === 'image' ? { $set: { image: newName } } :
-              type === 'audio' ? { $set: { audio: newName } } : { $set: { video: newName } }
+            let update = (
+              type === 'image' ? { $set: { image: newName } } :
+              type === 'audio' ? { $set: { audio: newName } } :
+              tyep === 'video' ? { $set: { video: newName } } : {}
+            )
             Record.findByIdAndUpdate(req.query.recordId, update)
             .then(() => res.json({ result: 'ok', path: newName }))
           }
