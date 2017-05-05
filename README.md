@@ -69,6 +69,15 @@ git push origin master
   }
 }
 ```
+在线状态数据模型
+```json
+{
+  "online": {
+    "_id": "uid, 数据库ID",
+    "userId": "uid, 用户数据库ID"
+  }
+}
+```
 
 ![ShareJourneyDB](images-for-readme/ShareJourneyDB.png)
 
