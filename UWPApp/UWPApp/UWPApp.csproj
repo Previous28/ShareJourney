@@ -123,7 +123,17 @@
     <None Include="UWPApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\imageForEditPage1.png" />
+    <Content Include="Assets\imageForEditPage2.png" />
+    <Content Include="Assets\imageForEditPage3.png" />
     <Content Include="Assets\main.jpg" />
+    <Content Include="Assets\musicBg.jpg" />
+    <Content Include="Assets\play.png" />
+    <Content Include="Assets\post.png" />
+    <Content Include="Assets\testPic1.jpg" />
+    <Content Include="Assets\testPic2.jpg" />
+    <Content Include="Assets\testPic3.jpg" />
+    <Content Include="Assets\testPic4.jpg" />
     <Content Include="Assets\tmp_head.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

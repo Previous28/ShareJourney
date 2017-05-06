@@ -13,18 +13,35 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
-
 namespace UWPApp.View
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
     public sealed partial class AuthPage : Page
     {
         public AuthPage()
         {
             this.InitializeComponent();
+        }
+
+        // 标记当前是登录还是注册状态，默认为登录
+        private bool signUp = false;
+
+        private void changeState(object sender, RoutedEventArgs e)
+        {
+            signUp = !signUp;
+            if (signUp)
+            {
+                confirm.Visibility = Visibility.Visible;
+                nickname.Visibility = Visibility.Visible;
+                mainBtn.Content = "Sign up";
+                subBtn.Content = "Back";
+            }
+            else
+            {
+                confirm.Visibility = Visibility.Collapsed;
+                nickname.Visibility = Visibility.Collapsed;
+                mainBtn.Content = "Sign in";
+                subBtn.Content = "Sign up";
+            }
         }
     }
 }
