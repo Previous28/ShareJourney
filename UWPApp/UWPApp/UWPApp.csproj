@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -123,13 +123,20 @@
     <None Include="UWPApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\cancel.png" />
+    <Content Include="Assets\favourite.png" />
     <Content Include="Assets\imageForEditPage1.png" />
     <Content Include="Assets\imageForEditPage2.png" />
     <Content Include="Assets\imageForEditPage3.png" />
     <Content Include="Assets\main.jpg" />
     <Content Include="Assets\musicBg.jpg" />
+    <Content Include="Assets\pickMusic.png" />
+    <Content Include="Assets\pickPicture.png" />
+    <Content Include="Assets\pickVideo.png" />
     <Content Include="Assets\play.png" />
     <Content Include="Assets\post.png" />
+    <Content Include="Assets\publish.png" />
+    <Content Include="Assets\stop.png" />
     <Content Include="Assets\testPic1.jpg" />
     <Content Include="Assets\testPic2.jpg" />
     <Content Include="Assets\testPic3.jpg" />

@@ -12,7 +12,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Assets/main.jpg" Stretch="Fill"/>
         </Grid.Background>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,6 +20,30 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="widePart1.Visibility" Value="Collapsed" />
+                        <Setter Target="widePart2.Visibility" Value="Collapsed" />
+                        <Setter Target="narrowPart.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="680" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="widePart1.Visibility" Value="Visible" />
+                        <Setter Target="widePart2.Visibility" Value="Visible" />
+                        <Setter Target="narrowPart.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
         <!--顶部导航栏与头像-->
         <Grid Height="60" Grid.Row="0" Background="#99000000" VerticalAlignment="Center">
@@ -45,12 +69,12 @@
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
-        
+
         <!--标题栏底部白边-->
         <Line Grid.Row="1" Stroke="White" StrokeThickness="3" X2="1500"/>
 
         <!--发布、取消栏-->
-        <Grid Grid.Row="1" Width="670" Background="#66000000" Margin="0 10 0 0">
+        <Grid Grid.Row="1" Background="#66000000" Margin="0 10 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -68,13 +92,18 @@
             </Button>
         </Grid>
 
-        <!--用于输入文本的富文本框-->
+        <!--用于输入文本的两个富文本框-->
         <Grid Grid.Row="2">
-            <RichEditBox x:Name="details" Height="280" Width="670" Margin="20, 0, 20, 20"></RichEditBox>
+            <RichEditBox x:Name="tital" Height="20" Margin="20, 0, 20, 20" VerticalAlignment="Top" PlaceholderText="Title"></RichEditBox>
+        </Grid>
+        <Grid Grid.Row="2">
+            <RichEditBox x:Name="details" Height="280" Margin="20, 35, 20, 20" PlaceholderText="Content"></RichEditBox>
         </Grid>
 
+        
+
         <!--模块：选择分享图片、视频、音乐-->
-        <Grid Grid.Row="3"  Width="670">
+        <Grid Grid.Row="3" HorizontalAlignment="Center" x:Name="widePart1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="223"/>
                 <ColumnDefinition Width="223"/>
@@ -87,7 +116,7 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
-                    
+
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
@@ -114,7 +143,7 @@
         </Grid>
 
         <!--模块：选择文件（图片、音乐、视频）-->
-        <Grid Grid.Row="4"  Width="670">
+        <Grid Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="widePart2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="223"/>
                 <ColumnDefinition Width="223"/>
@@ -122,26 +151,54 @@
             </Grid.ColumnDefinitions>
 
             <!--选择图片按钮-->
-            <Button Grid.Column="0" Click="pickPicture" Height="45" Width="100" HorizontalAlignment="Center">
+            <Button Grid.Column="0" Click="pickPicture" Height="40" Width="90" HorizontalAlignment="Center">
                 <Button.Background>
                     <ImageBrush ImageSource="../Assets/pickPicture.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
 
             <!--选择音乐按钮-->
-            <Button Grid.Column="1" Click="pickMusic" Height="45" Width="100" HorizontalAlignment="Center">
+            <Button Grid.Column="1" Click="pickMusic" Height="40" Width="90" HorizontalAlignment="Center">
                 <Button.Background>
                     <ImageBrush ImageSource="../Assets/pickMusic.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
 
             <!--选择视频按钮-->
-            <Button Grid.Column="2" Click="pickVideo" Height="45" Width="100" HorizontalAlignment="Center">
+            <Button Grid.Column="2" Click="pickVideo" Height="40" Width="90" HorizontalAlignment="Center">
                 <Button.Background>
                     <ImageBrush ImageSource="../Assets/pickVideo.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
+        </Grid>
+        
+        <Grid Grid.Row="3" HorizontalAlignment="Center" x:Name="narrowPart">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
 
+            <!--选择图片按钮-->
+            <Button Grid.Column="0" Click="pickPicture" Height="40" Width="90" Margin="0 0 70 0 ">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/pickPicture.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+
+            <!--选择音乐按钮-->
+            <Button Grid.Column="1" Click="pickMusic" Height="40" Width="90" >
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/pickMusic.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+
+            <!--选择视频按钮-->
+            <Button Grid.Column="2" Click="pickVideo" Height="40" Width="90" Margin="70 0 0 0">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/pickVideo.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
         </Grid>
     </Grid>
 </Page>

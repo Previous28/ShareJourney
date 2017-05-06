@@ -29,6 +29,23 @@ namespace UWPApp.View
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            //如果页面可以回退，则显示回退按钮
+            if (rootFrame.CanGoBack)
+            {
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                    AppViewBackButtonVisibility.Visible;
+            }
+            else
+            {
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                    AppViewBackButtonVisibility.Collapsed;
+            }
+        }
+
         private void SeekMediaPosition(object sender, RangeBaseValueChangedEventArgs e)
         {
             int SliderValue = (int)timelineSlider.Value;

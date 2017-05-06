@@ -5,117 +5,210 @@
     xmlns:local="using:UWPApp.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
 
-    <ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.Background>
-                <ImageBrush ImageSource="../Assets/main.jpg" Stretch="Fill"/>
-            </Grid.Background>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Assets/main.jpg" Stretch="Fill"/>
+        </Grid.Background>
 
-            <!--顶栏信息-->
-            <Grid Grid.Row="0" Width="930">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <!--发布者头像-->
-                <Ellipse Grid.Column="0" Width="80" Height="80" Margin="40 0 10 0" HorizontalAlignment="Left">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <!--发布者昵称-->
-                <TextBlock Grid.Column="1" x:Name="publisher" Foreground="White" Margin="20 30 0 0" FontSize="26">
-                    发布者
-                </TextBlock>
-                <!--发布时间-->
-                <TextBlock Grid.Column="1" x:Name="publishTime" Foreground="White" Margin="20 70 0 0">
-                    2017年01月01日 13:00
-                </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="widePart.Visibility" Value="Collapsed" />
+                        <Setter Target="narrowPart.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="950" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="widePart.Visibility" Value="Visible"/>
+                        <Setter Target="narrowPart.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!--顶栏信息-->
+        <Grid Grid.Row="0" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--发布者头像-->
+            <Ellipse Grid.Column="0" Width="80" Height="80" Margin="30 0 0 0">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <!--发布者昵称-->
+            <TextBlock Grid.Column="1" x:Name="publisher" Foreground="White" Margin="20 30 0 0" FontSize="26">
+                发布者
+            </TextBlock>
+            <!--发布时间-->
+            <TextBlock Grid.Column="1" x:Name="publishTime" Foreground="White" Margin="20 70 0 0">
+                2017年01月01日 13:00
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="0" HorizontalAlignment="left">
+            <!--顶栏下边用于装饰的线条-->
+            <Line Width="280" Stretch="Fill" Stroke="White" Margin="25 120 0 15" StrokeThickness="1" X1="1"
+                    VerticalAlignment="Center" />
+        </Grid>
+
+
+        <!--应用窗口宽度大于950时的显示内容-->
+        <Grid Grid.Row="1" VerticalAlignment="Center" x:Name="widePart">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--分享图片模块-->
+            <Grid Grid.Column="0" Width="580" Height="350" Margin="40, 30, 0, 30" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Width="280" Height="170" Source="../Assets/testPic1.jpg" HorizontalAlignment="Left"></Image>
+                <Image Grid.Row="0" Width="280" Height="170" Source="../Assets/testPic2.jpg" Margin="280 0 0 0"></Image>
+
+                <Image Grid.Row="1" Width="280" Height="170" Source="../Assets/testPic3.jpg" HorizontalAlignment="Left"></Image>
+                <Image Grid.Row="1" Width="280" Height="170" Source="../Assets/testPic4.jpg" Margin="280 0 0 0"></Image>
             </Grid>
-            <Grid Grid.Row="0" Width="930">
-                <!--顶栏下边用于装饰的线条-->
-                <Line Width="250" Stretch="Fill" Stroke="White" Margin="25 120 20 0" StrokeThickness="1" X1="1"
-                      VerticalAlignment="Center" HorizontalAlignment="Left" />
-            </Grid>
 
-            
-            <!--内容栏-->
-            <Grid Grid.Row="1" Width="930" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <!--媒体播放器-->
+            <MediaElement Grid.Column="0" x:Name="mediaElement" AutoPlay = "False" Margin="40, 30, 0, 30"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Height="350" Width="580"
+                        Source="null"
+                        Visibility="Collapsed"/>
 
-                <!--分享图片模块-->
-                <Grid Grid.Column="0" Width="580" Height="350" Margin="40, 50, 0, 30" Visibility="Collapsed">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <!--音乐播放时的背景图-->
+            <Image Grid.Column="0" Margin="40, 30, 0, 30" Height="350" Width="580" Source="../Assets/musicBg.jpg"
+                    Visibility="Collapsed"></Image>
 
-                    <Image Grid.Row="0" Width="280" Height="170" Source="../Assets/testPic1.jpg" HorizontalAlignment="Left"></Image>
-                    <Image Grid.Row="0" Width="280" Height="170" Source="../Assets/testPic2.jpg" Margin="280 0 0 0"></Image>
+            <!--进度条-->
+            <Slider Grid.Column="0" Foreground="White" x:Name="timelineSlider" VerticalAlignment="Center"
+                    Margin="105, 310, 20, 0" ValueChanged="SeekMediaPosition" Height="37" Visibility="Collapsed"/>
 
-                    <Image Grid.Row="1" Width="280" Height="170" Source="../Assets/testPic3.jpg" HorizontalAlignment="Left"></Image>
-                    <Image Grid.Row="1" Width="280" Height="170" Source="../Assets/testPic4.jpg" Margin="280 0 0 0"></Image>
-                </Grid>
+            <!--开始和暂停按钮-->
+            <Button Grid.Column="0" Click="playClick" Height="60" Width="60" Margin="40, 305, 20, 0"
+                    Visibility="Collapsed">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/play.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="0" Click="stopClick" Height="60" Width="60" Margin="40, 305, 20, 0"
+                    Visibility="Collapsed">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Assets/stop.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+
+            <!--文字描述部分-->
+            <ScrollViewer Grid.Column="1" VerticalAlignment="Top" Margin="0 30 0 30">
+                <TextBlock Margin="20, 0, 30, 0"  TextWrapping="Wrap" FontFamily="微软雅黑"
+                            Foreground="White" FontSize="18">
+                杭州是我国七大古都之一，风景秀丽，被人誉为“上有天堂，下有苏杭”。杭州是一个旅游资源非常丰富的城市。
+                其最为出名的为西湖，古人称赞其为“淡妆浓抹总相宜”。此外杭州还有著名的虎跑泉、灵隐-飞来峰、六和塔、
+                三潭印月、苏堤春晓、断桥残雪、平湖秋月、岳庙、孤山等风景名胜。杭州有很多地方特色的特产，如
+                杭州丝绸、龙井茶叶、杭菊、西湖绸伞...杭州是我国七大古都之一，风景秀丽，被人誉为“上有天堂，下有苏杭”。杭州是一个旅游资源非常丰富的城市。
+                其最为出名的为西湖，古人称赞其为“淡妆浓抹总相宜”。此外杭州还有著名的虎跑泉、灵隐-飞来峰、六和塔、
+                三潭印月、苏堤春晓、断桥残雪、平湖秋月、岳庙、孤山等风景名胜。杭州有很多地方特色的特产，如
+                杭州丝绸、龙井茶叶、杭菊、西湖绸伞...杭州是我国七大古都之一，风景秀丽，被人誉为“上有天堂，下有苏杭”。杭州是一个旅游资源非常丰富的城市。
+                其最为出名的为西湖，古人称赞其为“淡妆浓抹总相宜”。此外杭州还有著名的虎跑泉、灵隐-飞来峰、六和塔、
+                三潭印月、苏堤春晓、断桥残雪、平湖秋月、岳庙、孤山等风景名胜。杭州有很多地方特色的特产，如
+                杭州丝绸、龙井茶叶、杭菊、西湖绸伞...
+                </TextBlock>
+            </ScrollViewer>
+        </Grid>
+
+        <!--应用窗口宽度小于950时的显示内容-->
+        <ScrollViewer Grid.Row="1" VerticalAlignment="Top">
+            <Grid Grid.Row="1" x:Name="narrowPart" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--文字描述部分-->
+                <TextBlock Grid.Row="0" Margin="20, 20, 20, 0"  TextWrapping="Wrap" FontFamily="微软雅黑"
+                        Foreground="White" FontSize="18">
+                    杭州是我国七大古都之一，风景秀丽，被人誉为“上有天堂，下有苏杭”。杭州是一个旅游资源非常丰富的城市。
+                    其最为出名的为西湖，古人称赞其为“淡妆浓抹总相宜”。此外杭州还有著名的虎跑泉、灵隐-飞来峰、六和塔、
+                    三潭印月、苏堤春晓、断桥残雪、平湖秋月、岳庙、孤山等风景名胜。杭州有很多地方特色的特产，如
+                    杭州丝绸、龙井茶叶、杭菊、西湖绸伞...
+                </TextBlock>
 
                 <!--媒体播放器-->
-                <MediaElement Grid.Column="0" x:Name="mediaElement" AutoPlay = "False" Margin="40, 50, 0, 30"
-                          HorizontalAlignment="Left" VerticalAlignment="Top" Height="350" Width="580"
-                          Source="\\Mac\Home\Desktop\DC\超女.Supergirl.S02E16.中英字幕.HDTVrip.1024X576.mp4"
-                          Visibility="Collapsed"/>
+                <MediaElement Grid.Row="1" x:Name="mediaElement2" AutoPlay = "False" HorizontalAlignment="Center"
+                         VerticalAlignment="Top" Height="288" Width="480" Margin="0 20 0 20"
+                        Source="\\Mac\Home\Desktop\DC\超女.Supergirl.S02E16.中英字幕.HDTVrip.1024X576.mp4"
+                        Visibility="Collapsed"/>
 
                 <!--音乐播放时的背景图-->
-                <Image Grid.Column="0" Margin="40, 50, 0, 30" Height="350" Width="580" Source="../Assets/musicBg.jpg"
-                       Visibility="Visible"></Image>
+                <Image Grid.Row="1" Height="288" Width="480" Source="../Assets/musicBg.jpg" Margin="0 20 0 20"
+                    Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Top"></Image>
 
                 <!--进度条-->
-                <Slider Grid.Column="0" Foreground="White" x:Name="timelineSlider" VerticalAlignment="Center"
-                        Margin="105, 310, 20, 0" ValueChanged="SeekMediaPosition" Height="37" Visibility="Visible"/>
+                <Slider Grid.Row="1" Foreground="White" x:Name="timelineSlider2" VerticalAlignment="Center"
+                        ValueChanged="SeekMediaPosition" Width="400" Height="37" Margin="35 240 0 0"
+                        HorizontalAlignment="Center" Visibility="Collapsed"/>
 
                 <!--开始和暂停按钮-->
-                <Button Grid.Column="0" Click="playClick" Height="60" Width="60" Margin="40, 305, 20, 0"
-                        Visibility="Visible">
+                <Button Grid.Row="1" Click="playClick" Height="60" Width="60" Margin="0, 240, 420, 0"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                     <Button.Background>
                         <ImageBrush ImageSource="../Assets/play.png" Stretch="Fill"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="0" Click="stopClick" Height="60" Width="60" Margin="40, 305, 20, 0"
-                        Visibility="Collapsed">
+                <Button Grid.Row="1" Click="stopClick" Height="60" Width="60" Margin="0, 240, 420, 0"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                     <Button.Background>
                         <ImageBrush ImageSource="../Assets/stop.png" Stretch="Fill"/>
                     </Button.Background>
                 </Button>
 
-                <!--文字描述部分-->
-                <TextBlock Grid.Column="1" Margin="20, 50, 30, 30"  TextWrapping="Wrap" FontFamily="微软雅黑"
-                           Foreground="White" FontSize="18">
-                杭州是我国七大古都之一，风景秀丽，被人誉为“上有天堂，下有苏杭”。杭州是一个旅游资源非常丰富的城市。
-                其最为出名的为西湖，古人称赞其为“淡妆浓抹总相宜”。此外杭州还有著名的虎跑泉、灵隐-飞来峰、六和塔、
-                三潭印月、苏堤春晓、断桥残雪、平湖秋月、岳庙、孤山等风景名胜。杭州有很多地方特色的特产，如
-                杭州丝绸、龙井茶叶、杭菊、西湖绸伞...
-                </TextBlock>
-            </Grid>
+                <!--分享图片模块-->
+                <Grid Grid.Row="1" Width="480" Margin="0 20 0 20" HorizontalAlignment="Center" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            
+                    <Image Grid.Row="0" Width="480" Height="288" Source="../Assets/testPic1.jpg" Margin="0 0 0 8"></Image>
+                    <Image Grid.Row="1" Width="480" Height="288" Source="../Assets/testPic2.jpg" Margin="0 0 0 8"></Image>
+                    <Image Grid.Row="2" Width="480" Height="288" Source="../Assets/testPic3.jpg" Margin="0 0 0 8"></Image>
+                    <Image Grid.Row="3" Width="480" Height="288" Source="../Assets/testPic4.jpg" Margin="0 0 0 8"></Image>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="2" VerticalAlignment="Top">
             <!--点赞栏-->
-            <Grid Grid.Row="2" Background="#66000000">
+            <Grid Background="#66000000">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!--点赞按钮-->
-                <Grid Grid.Row="0" Width="920">
+                <Grid Grid.Row="0">
                     <Button Margin="20,20,0,0" Name="favouriteButton" Height="40" Width="90">
                         <Button.Background>
                             <ImageBrush ImageSource="../Assets/favourite.png" Stretch="Fill"/>
@@ -124,12 +217,12 @@
                 </Grid>
 
                 <!--点赞按钮下边用于装饰的线条-->
-                <Grid Grid.Row="1" Width="920">
+                <Grid Grid.Row="1">
                     <Line Width="250" Stretch="Fill" Stroke="White" Margin="20 20 20 20" StrokeThickness="1"
                           X1="1" VerticalAlignment="Center" HorizontalAlignment="Left" />
                 </Grid>
 
-                <Grid Grid.Row="2" Width="920" Margin="0 0 0 50">
+                <Grid Grid.Row="2" Margin="0 0 0 50">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -155,6 +248,6 @@
                     </Ellipse>
                 </Grid>
             </Grid>
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </Page>
