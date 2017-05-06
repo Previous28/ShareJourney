@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace UWPApp.Helper
 {
@@ -29,6 +31,30 @@ namespace UWPApp.Helper
         {
             HttpClient client = new HttpClient();
             var response = await client.GetAsync(SERVER + api);
+            Byte[] res = await response.Content.ReadAsByteArrayAsync();
+            Encoding code = Encoding.GetEncoding("UTF-8");
+            string resStr = code.GetString(res, 0, res.Length);
+            return (JObject)JsonConvert.DeserializeObject(resStr);
+        }
+
+        // 发送文件 POST 请求
+        private static async Task<JObject> POST_FILE(string api, string key, StorageFile file)
+        {
+            // 读取文件流
+            var streamData = await file.OpenReadAsync();
+            var bytes = new byte[streamData.Size];
+            using (var dataReader = new DataReader(streamData))
+            {
+                await dataReader.LoadAsync((uint)streamData.Size);
+                dataReader.ReadBytes(bytes);
+            }
+            var streamContent = new ByteArrayContent(bytes);
+
+            // 上传文件
+            var content = new MultipartFormDataContent();
+            content.Add(streamContent, key);
+            HttpClient client = new HttpClient();
+            var response = await client.PostAsync(SERVER + api, content);
             Byte[] res = await response.Content.ReadAsByteArrayAsync();
             Encoding code = Encoding.GetEncoding("UTF-8");
             string resStr = code.GetString(res, 0, res.Length);
@@ -118,9 +144,32 @@ namespace UWPApp.Helper
             return await GET(api);
         }
 
-        // TODO: 上传图片接口
-        // TODO: 上传音频接口
-        // TODO: 上传视频接口
-        // TODO: 上传头像接口
+        // 上传图片接口
+        public static async Task<JObject> uploadImage(StorageFile file, string onlineId, string recordId)
+        {
+            string api = "/api/upload/image?onlineId=" + onlineId + "&recordId=" + recordId;
+            return await POST_FILE(api, "image", file);
+        }
+
+        // 上传音频接口
+        public static async Task<JObject> uploadAudio(StorageFile file, string onlineId, string recordId)
+        {
+            string api = "/api/upload/audio?onlineId=" + onlineId + "&recordId=" + recordId;
+            return await POST_FILE(api, "audio", file);
+        }
+
+        // 上传视频接口
+        public static async Task<JObject> uploadVideo(StorageFile file, string onlineId, string recordId)
+        {
+            string api = "/api/upload/video?onlineId=" + onlineId + "&recordId=" + recordId;
+            return await POST_FILE(api, "video", file);
+        }
+
+        // 上传头像接口
+        public static async Task<JObject> uploadAvatar(StorageFile file, string onlineId)
+        {
+            string api = "/api/upload/avatar?onlineId=" + onlineId;
+            return await POST_FILE(api, "avatar", file);
+        }
     }
 }
