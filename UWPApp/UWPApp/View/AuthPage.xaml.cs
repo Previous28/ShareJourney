@@ -25,6 +25,7 @@ namespace UWPApp.View
         // 标记当前是登录还是注册状态，默认为登录
         private bool signUp = false;
 
+        // 更新输入表单状态：登录表单或注册表单
         private void changeState(object sender, RoutedEventArgs e)
         {
             signUp = !signUp;
@@ -41,6 +42,19 @@ namespace UWPApp.View
                 nickname.Visibility = Visibility.Collapsed;
                 mainBtn.Content = "Sign in";
                 subBtn.Content = "Sign up";
+            }
+        }
+
+        // 执行登录或注册操作
+        private void doAction(object sender, RoutedEventArgs e)
+        {
+            if (signUp)
+            {
+                // 注册
+            }
+            else
+            {
+                // 登录
             }
         }
     }
