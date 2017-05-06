@@ -57,7 +57,7 @@ module.exports = (User, Online) => {
             username: req.body.username,
             password: md5(req.body.password),
             nickname: req.body.nickname,
-            avatar: '/static/avatar/default.png'
+            avatar: '/static/default-avatar.jpg'
           }).save().then(user => {
             new Online({ userId: user._id }).save().then(online => {
               res.json({
