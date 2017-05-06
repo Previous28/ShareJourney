@@ -46,7 +46,7 @@
         </Grid>
         
         <!--标题栏底部白边-->
-        <Line Grid.Row="1" Stroke="White" StrokeThickness="3" X2="1500"/>
+        <Line Grid.Row="1" Stroke="White" StrokeThickness="1" Stretch="Fill" X1="1"/>
         
         <!--记录列表-->
         <ScrollViewer Grid.Row="2" VerticalAlignment="Top">
@@ -67,13 +67,13 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!--头像与发布时间-->
-                                <StackPanel Grid.Column="0" Padding="20 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="11:00 AM" FontSize="20" FontWeight="SemiBold" Margin="0 0 0 10"/>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Ellipse Width="50" Height="50">
                                         <Ellipse.Fill>
                                             <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
+                                    <TextBlock Text="11:00 AM" FontSize="18" FontWeight="SemiBold" Margin="0 10 0 0"/>
                                 </StackPanel>
 
                                 <!--标题和简述-->
@@ -90,7 +90,7 @@
                             </Grid>
 
                             <!--列表项底部灰边-->
-                            <Line Grid.Row="1" Stroke="Gray" StrokeThickness="2" X2="800"/>
+                            <Line Grid.Row="1" Stroke="Gray" StrokeThickness="1" Stretch="Fill" X1="1"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
