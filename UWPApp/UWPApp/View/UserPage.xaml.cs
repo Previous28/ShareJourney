@@ -70,10 +70,6 @@ namespace UWPApp.View
             {
                 (Window.Current.Content as Frame).Navigate(typeof(DetailPage));
             }
-            else
-            {
-                (Window.Current.Content as Frame).Navigate(typeof(AuthPage));
-            }
         }
     }
 }

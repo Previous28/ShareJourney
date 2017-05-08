@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace UWPApp.View
 {
@@ -46,15 +37,68 @@ namespace UWPApp.View
         }
 
         // 执行登录或注册操作
-        private void doAction(object sender, RoutedEventArgs e)
+        private async void doAction(object sender, RoutedEventArgs e)
         {
             if (signUp)
             {
-                // 注册
+                // 用户名或密码格式非法
+                if (username.Text.Length < 8 || username.Text.Length > 15 ||
+                    password.Password.Length < 8 || password.Password.Length > 15)
+                {
+                    await (new MessageDialog("用户名和密码长度为8-15个字符！")).ShowAsync();
+                }
+                // 密码和重复密码不一致
+                else if (password.Password != confirm.Password)
+                {
+                    await (new MessageDialog("密码和确认密码不一致！")).ShowAsync();
+                }
+                // 没有输入昵称
+                else if (nickname.Text.Length == 0)
+                {
+                    await (new MessageDialog("请输入昵称！")).ShowAsync();
+                }
+                // 数据合法，进行注册
+                else
+                {
+                    JObject res = await Helper.NetworkHelper.signup(username.Text, password.Password, nickname.Text);
+                    if (res["result"].ToString() == Helper.NetworkHelper.FAILED)
+                    {
+                        await (new MessageDialog("注册失败！该用户名已被注册！")).ShowAsync();
+                    }
+                    else
+                    {
+                        Store.UserStore.onlineId = res["onlineId"].ToString();
+                        Store.UserStore.username = res["username"].ToString();
+                        Store.UserStore.nickname = res["nickname"].ToString();
+                        Store.UserStore.avatar = res["avatar"].ToString();
+                        (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
+                    }
+                }
             }
             else
             {
-                // 登录
+                // 没有输入用户名或密码
+                if (username.Text.Length == 0 || password.Password.Length == 0)
+                {
+                    await (new MessageDialog("请输入用户名密码！")).ShowAsync();
+                }
+                // 进行登录
+                else
+                {
+                    JObject res = await Helper.NetworkHelper.signin(username.Text, password.Password);
+                    if (res["result"].ToString() == Helper.NetworkHelper.FAILED)
+                    {
+                        await (new MessageDialog("登录失败！请输入正确的用户名密码！")).ShowAsync();
+                    }
+                    else
+                    {
+                        Store.UserStore.onlineId = res["onlineId"].ToString();
+                        Store.UserStore.username = res["username"].ToString();
+                        Store.UserStore.nickname = res["nickname"].ToString();
+                        Store.UserStore.avatar = res["avatar"].ToString();
+                        (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
+                    }
+                }
             }
         }
     }

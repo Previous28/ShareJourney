@@ -15,6 +15,10 @@ namespace UWPApp.Helper
         // 服务器域名配置
         public static string SERVER = "http://118.89.35.155:8080";
 
+        // 操作结果成功与失败的标志
+        public static string SUCCESS = "ok";
+        public static string FAILED = "error";
+
         // 发送普通表单 POST 请求
         private static async Task<JObject> POST(string api, FormUrlEncodedContent form)
         {
