@@ -2,11 +2,14 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.Web.Http;
 
 namespace UWPApp.Helper
 {
@@ -20,13 +23,11 @@ namespace UWPApp.Helper
         public static string FAILED = "error";
 
         // 发送普通表单 POST 请求
-        private static async Task<JObject> POST(string api, FormUrlEncodedContent form)
+        private static async Task<JObject> POST(string api, HttpFormUrlEncodedContent form)
         {
             HttpClient client = new HttpClient();
-            var response = await client.PostAsync(SERVER + api, form);
-            Byte[] res = await response.Content.ReadAsByteArrayAsync();
-            Encoding code = Encoding.GetEncoding("UTF-8");
-            string resStr = code.GetString(res, 0, res.Length);
+            var response = await client.PostAsync(new Uri(SERVER + api), form);
+            string resStr = await response.Content.ReadAsStringAsync();
             return (JObject)JsonConvert.DeserializeObject(resStr);
         }
 
@@ -34,10 +35,8 @@ namespace UWPApp.Helper
         private static async Task<JObject> GET(string api)
         {
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(SERVER + api);
-            Byte[] res = await response.Content.ReadAsByteArrayAsync();
-            Encoding code = Encoding.GetEncoding("UTF-8");
-            string resStr = code.GetString(res, 0, res.Length);
+            var response = await client.GetAsync(new Uri(SERVER + api));
+            string resStr = await response.Content.ReadAsStringAsync();
             return (JObject)JsonConvert.DeserializeObject(resStr);
         }
 
@@ -45,30 +44,22 @@ namespace UWPApp.Helper
         private static async Task<JObject> POST_FILE(string api, string key, StorageFile file)
         {
             // 读取文件流
-            var streamData = await file.OpenReadAsync();
-            var bytes = new byte[streamData.Size];
-            using (var dataReader = new DataReader(streamData))
-            {
-                await dataReader.LoadAsync((uint)streamData.Size);
-                dataReader.ReadBytes(bytes);
-            }
-            var streamContent = new ByteArrayContent(bytes);
+            IInputStream stream = await file.OpenSequentialReadAsync();
+            var streamContent = new HttpStreamContent(stream);
 
             // 上传文件
-            var content = new MultipartFormDataContent();
-            content.Add(streamContent, key);
+            var form = new HttpMultipartFormDataContent();
+            form.Add(streamContent, key);
             HttpClient client = new HttpClient();
-            var response = await client.PostAsync(SERVER + api, content);
-            Byte[] res = await response.Content.ReadAsByteArrayAsync();
-            Encoding code = Encoding.GetEncoding("UTF-8");
-            string resStr = code.GetString(res, 0, res.Length);
+            var response = await client.PostAsync(new Uri(SERVER + api), form);
+            string resStr = await response.Content.ReadAsStringAsync();
             return (JObject)JsonConvert.DeserializeObject(resStr);
         }
 
         // 用户登录接口
         public static async Task<JObject> signin(string username, string password)
         {
-            var form = new FormUrlEncodedContent(new Dictionary<string, string>()
+            var form = new HttpFormUrlEncodedContent(new Dictionary<string, string>()
             {
                 { "username", username },
                 { "password", password }
@@ -79,7 +70,7 @@ namespace UWPApp.Helper
         // 用户注册接口
         public static async Task<JObject> signup(string username, string password, string nickname)
         {
-            var form = new FormUrlEncodedContent(new Dictionary<string, string>()
+            var form = new HttpFormUrlEncodedContent(new Dictionary<string, string>()
             {
                 { "username", username },
                 { "password", password },
@@ -107,13 +98,13 @@ namespace UWPApp.Helper
             {
                 dict["password"] = password;
             }
-            return await POST("/api/auth/modify", new FormUrlEncodedContent(dict));
+            return await POST("/api/auth/modify", new HttpFormUrlEncodedContent(dict));
         }
 
         // 发布记录接口
         public static async Task<JObject> postRecord(string title, string content, string onlineId)
         {
-            var form = new FormUrlEncodedContent(new Dictionary<string, string>()
+            var form = new HttpFormUrlEncodedContent(new Dictionary<string, string>()
             {
                 { "title", title },
                 { "content", content },

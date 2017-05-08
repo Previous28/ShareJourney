@@ -71,6 +71,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="2" HorizontalAlignment="Left" Margin="20" VerticalAlignment="Center">
+                <Button Click="setAvatar" Margin="0 0 0 10" Width="100">Avatar</Button>
                 <Button Click="setUserInfo" x:Name="actionBtn" Margin="0 0 0 10" Width="100">Modify</Button>
                 <Button Click="signout" Background="#99DA3B01" Width="100">Signout</Button>
             </StackPanel>

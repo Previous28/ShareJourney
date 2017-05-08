@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,6 +22,27 @@ namespace UWPApp.View
         }
 
         private Store.RecordStore Data;
+
+        // 更换头像
+        private async void setAvatar(object sender, RoutedEventArgs e)
+        {
+            StorageFile file = await Helper.FileHelper.selectImage();
+            if (file != null)
+            {
+                JObject res = await Helper.NetworkHelper.uploadAvatar(file, Store.UserStore.onlineId);
+                if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
+                {
+                    Store.UserStore.avatar = res["path"].ToString();
+                    Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
+                    avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
+                    avatarInContent.ImageSource = new BitmapImage(avatarUri);
+                }
+                else
+                {
+                    await (new MessageDialog("上传失败！")).ShowAsync();
+                }
+            }
+        }
 
         // 更新用户信息
         private bool modify = false;
