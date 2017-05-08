@@ -49,7 +49,7 @@ namespace UWPApp.Helper
 
             // 上传文件
             var form = new HttpMultipartFormDataContent();
-            form.Add(streamContent, key);
+            form.Add(streamContent, key, file.Name);
             HttpClient client = new HttpClient();
             var response = await client.PostAsync(new Uri(SERVER + api), form);
             string resStr = await response.Content.ReadAsStringAsync();
