@@ -90,13 +90,16 @@ module.exports = (User, Online) => {
     }
   })
 
-  // 改昵称
-  api.get('/nickname', (req, res) => {
-    Online.findById(req.query.onlineId).then(online => {
-      if (!online || req.query.nickname.length < 1) {
+  // 改昵称或者密码
+  api.post('/modify', (req, res) => {
+    Online.findById(req.body.onlineId).then(online => {
+      if (!online || req.body.nickname.length < 1) {
         res.json({ result: 'error' })
       } else {
-        User.findByIdAndUpdate(online.userId, { $set: { nickname: req.query.nickname } })
+        let modifyItem = {}
+        req.body.nickname ? modifyItem.nickname = req.body.nickname : ''
+        req.body.password ? modifyItem.password = md5(req.body.password) : ''
+        User.findByIdAndUpdate(online.userId, { $set: modifyItem })
         .then(() => res.json({ result: 'ok' }))
       }
     }).catch(() => res.json({ result: 'error' }))

@@ -131,29 +131,37 @@
         }
       }
     },
-    "/api/auth/nickname": {
-      "get": {
+    "/api/auth/modify": {
+      "post": {
         "tags": [
           "Auth"
         ],
-        "summary": "用户改昵称",
-        "description": "需要提供在线ID以及新昵称，只有在线的用户才能修改昵称。无需提供用户ID，后台会根据在线ID找到对应的用户。",
+        "summary": "用户改昵称或密码",
+        "description": "需要提供在线ID以及新昵称或新密码，只有在线的用户才能修改信息。无需提供用户ID，后台会根据在线ID找到对应的用户。",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
             "name": "onlineId",
-            "in": "query",
+            "in": "formData",
             "description": "用户在线Id",
             "required": true,
             "type": "string"
           },
           {
             "name": "nickname",
-            "in": "query",
+            "in": "formData",
             "description": "新昵称",
-            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "新密码",
             "type": "string"
           }
         ],
