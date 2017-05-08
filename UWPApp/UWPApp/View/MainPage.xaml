@@ -35,11 +35,10 @@
             <AppBarButton Grid.Column="0" Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
             <AppBarButton Grid.Column="1" Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
             <AppBarButton Grid.Column="2" Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
-            <AppBarButton Grid.Column="3" Icon="Calendar" Label="详情" x:Name="detail" Click="goToOtherPage"/>
 
             <Ellipse Grid.Column="6" Width="40" Height="40" Margin="0 0 20 0">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{x:Bind avatar}"/>
+                    <ImageBrush x:Name="avatarInTopBar"/>
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>

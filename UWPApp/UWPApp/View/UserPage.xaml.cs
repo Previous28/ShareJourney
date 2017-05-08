@@ -3,6 +3,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.View
 {
@@ -14,10 +15,12 @@ namespace UWPApp.View
             Data = Store.RecordStore.getInstance();
             nicknameText.Text = Store.UserStore.nickname;
             usernameText.Text = Store.UserStore.username;
+            Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
+            avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
+            avatarInContent.ImageSource = new BitmapImage(avatarUri);
         }
 
         private Store.RecordStore Data;
-        private string _avatar = Helper.NetworkHelper.SERVER + Store.UserStore.avatar;
 
         // 更新用户信息
         private bool modify = false;
@@ -96,10 +99,6 @@ namespace UWPApp.View
             else if (btn.Name == "edit")
             {
                 (Window.Current.Content as Frame).Navigate(typeof(EditPage));
-            }
-            else if (btn.Name == "detail")
-            {
-                (Window.Current.Content as Frame).Navigate(typeof(DetailPage));
             }
         }
     }

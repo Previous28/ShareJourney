@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.View
 {
@@ -21,10 +13,11 @@ namespace UWPApp.View
         {
             InitializeComponent();
             Data = Store.RecordStore.getInstance();
+            Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
+            avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
         }
 
         private Store.RecordStore Data;
-        private string avatar = Helper.NetworkHelper.SERVER + Store.UserStore.avatar;
 
         // 页面跳转
         private void goToOtherPage(object sender, RoutedEventArgs e)
@@ -41,10 +34,6 @@ namespace UWPApp.View
             else if (btn.Name == "edit")
             {
                 (Window.Current.Content as Frame).Navigate(typeof(EditPage));
-            }
-            else if (btn.Name == "detail")
-            {
-                (Window.Current.Content as Frame).Navigate(typeof(DetailPage));
             }
         }
     }
