@@ -24,6 +24,7 @@ namespace UWPApp.View
         }
 
         private Store.RecordStore Data;
+        private string avatar = Helper.NetworkHelper.SERVER + Store.UserStore.avatar;
 
         // 页面跳转
         private void goToOtherPage(object sender, RoutedEventArgs e)

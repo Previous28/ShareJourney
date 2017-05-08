@@ -71,6 +71,7 @@ namespace UWPApp.View
                         Store.UserStore.username = res["username"].ToString();
                         Store.UserStore.nickname = res["nickname"].ToString();
                         Store.UserStore.avatar = res["avatar"].ToString();
+                        Store.UserStore.userId = res["userId"].ToString();
                         (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
                     }
                 }
@@ -96,6 +97,7 @@ namespace UWPApp.View
                         Store.UserStore.username = res["username"].ToString();
                         Store.UserStore.nickname = res["nickname"].ToString();
                         Store.UserStore.avatar = res["avatar"].ToString();
+                        Store.UserStore.userId = res["userId"].ToString();
                         (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
                     }
                 }

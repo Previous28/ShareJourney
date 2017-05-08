@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace UWPApp.View
         }
 
         private Store.RecordStore Data;
+        private string _avatar = Helper.NetworkHelper.SERVER + Store.UserStore.avatar;
+        private string _username = Store.UserStore.username;
+        private string _nickname = Store.UserStore.nickname;
 
         // 更新用户信息
         private bool modify = false;
@@ -34,6 +38,7 @@ namespace UWPApp.View
                 // TODO: 更新用户信息
                 modify = false;
                 nicknameText.Visibility = Visibility.Visible;
+                usernameText.Visibility = Visibility.Visible;
                 nickname.Visibility = Visibility.Collapsed;
                 password.Visibility = Visibility.Collapsed;
                 confirm.Visibility = Visibility.Collapsed;
@@ -43,10 +48,21 @@ namespace UWPApp.View
             {
                 modify = true;
                 nicknameText.Visibility = Visibility.Collapsed;
+                usernameText.Visibility = Visibility.Collapsed;
                 nickname.Visibility = Visibility.Visible;
                 password.Visibility = Visibility.Visible;
                 confirm.Visibility = Visibility.Visible;
                 actionBtn.Content = "Update";
+            }
+        }
+
+        // 退出登录
+        private async void signout(object sender, RoutedEventArgs e)
+        {
+            JObject res = await Helper.NetworkHelper.signout(Store.UserStore.onlineId);
+            if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(View.AuthPage));
             }
         }
 

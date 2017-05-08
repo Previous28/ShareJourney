@@ -41,7 +41,7 @@
 
             <Ellipse Grid.Column="6" Width="40" Height="40" Margin="0 0 20 0">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                    <ImageBrush ImageSource="{x:Bind _avatar}"/>
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
@@ -59,18 +59,22 @@
 
             <Ellipse Grid.Column="0" Width="150" Height="150" Margin="20">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
+                    <ImageBrush ImageSource="{x:Bind _avatar}"/>
                 </Ellipse.Fill>
             </Ellipse>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="20" VerticalAlignment="Center">
-                <TextBlock x:Name="nicknameText" Text="某个人" Width="200" FontSize="30"/>
+                <TextBlock x:Name="nicknameText" Text="{x:Bind _nickname}" Width="200" FontSize="30"/>
+                <TextBlock x:Name="usernameText" Text="{x:Bind _username}" Width="200" FontSize="15"/>
                 <TextBox x:Name="nickname" Text="某个人" Width="200" Visibility="Collapsed" Margin="0 0 0 10"/>
                 <PasswordBox x:Name="password" PlaceholderText="Password" Width="200" Visibility="Collapsed" Margin="0 0 0 10"/>
                 <PasswordBox x:Name="confirm" PlaceholderText="Confirm Password" Width="200" Visibility="Collapsed"/>
             </StackPanel>
 
-            <Button Grid.Column="2" Margin="20" Click="setUserInfo" x:Name="actionBtn">Modify</Button>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Left" Margin="20" VerticalAlignment="Center">
+                <Button Click="setUserInfo" x:Name="actionBtn" Margin="0 0 0 10" Width="100">Modify</Button>
+                <Button Click="signout" Background="#99DA3B01" Width="100">Signout</Button>
+            </StackPanel>
         </Grid>
 
         <!--用户信息栏底部白边-->
