@@ -21,7 +21,8 @@ module.exports = (User, Online) => {
                   onlineId: online._id,
                   username: user.username,
                   avatar: user.avatar,
-                  nickname: user.nickname
+                  nickname: user.nickname,
+                  userId: user._id
                 })
               })
             } else {
@@ -30,7 +31,8 @@ module.exports = (User, Online) => {
                 onlineId: online._id,
                 username: user.username,
                 avatar: user.avatar,
-                nickname: user.nickname
+                nickname: user.nickname,
+                userId: user._id
               })
             }
           })
@@ -65,7 +67,8 @@ module.exports = (User, Online) => {
                 onlineId: online._id,
                 username: user.username,
                 avatar: user.avatar,
-                nickname: user.nickname
+                nickname: user.nickname,
+                userId: user._id
               })
             })
           })
