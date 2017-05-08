@@ -1,18 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace UWPApp.View
 {
@@ -22,20 +12,44 @@ namespace UWPApp.View
         {
             this.InitializeComponent();
             Data = Store.RecordStore.getInstance();
+            nicknameText.Text = Store.UserStore.nickname;
+            usernameText.Text = Store.UserStore.username;
         }
 
         private Store.RecordStore Data;
         private string _avatar = Helper.NetworkHelper.SERVER + Store.UserStore.avatar;
-        private string _username = Store.UserStore.username;
-        private string _nickname = Store.UserStore.nickname;
 
         // 更新用户信息
         private bool modify = false;
-        private void setUserInfo(object sender, RoutedEventArgs e)
+        private async void setUserInfo(object sender, RoutedEventArgs e)
         {
             if (modify)
             {
-                // TODO: 更新用户信息
+                // 昵称不合法
+                if (nickname.Text.Length == 0)
+                {
+                    await (new MessageDialog("请输入昵称！")).ShowAsync();
+                }
+                // 密码输入不一致
+                else if (password.Password != confirm.Password)
+                {
+                    await (new MessageDialog("密码和确认密码不一致！")).ShowAsync();
+                }
+                // 需要更新信息
+                else if (nickname.Text != Store.UserStore.nickname || password.Password.Length > 0)
+                {
+                    JObject res = await Helper.NetworkHelper.modify(Store.UserStore.onlineId, nickname.Text, password.Password);
+                    if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
+                    {
+                        Store.UserStore.nickname = nickname.Text;
+                        nicknameText.Text = nickname.Text;
+                    }
+                    else
+                    {
+                        await (new MessageDialog("修改信息失败！")).ShowAsync();
+                    }
+                }
+                // 操作完毕更新界面
                 modify = false;
                 nicknameText.Visibility = Visibility.Visible;
                 usernameText.Visibility = Visibility.Visible;
@@ -52,6 +66,7 @@ namespace UWPApp.View
                 nickname.Visibility = Visibility.Visible;
                 password.Visibility = Visibility.Visible;
                 confirm.Visibility = Visibility.Visible;
+                nickname.Text = Store.UserStore.nickname;
                 actionBtn.Content = "Update";
             }
         }

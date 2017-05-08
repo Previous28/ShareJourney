@@ -64,8 +64,8 @@
             </Ellipse>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="20" VerticalAlignment="Center">
-                <TextBlock x:Name="nicknameText" Text="{x:Bind _nickname}" Width="200" FontSize="30"/>
-                <TextBlock x:Name="usernameText" Text="{x:Bind _username}" Width="200" FontSize="15"/>
+                <TextBlock x:Name="nicknameText" Width="200" FontSize="30"/>
+                <TextBlock x:Name="usernameText" Width="200" FontSize="15"/>
                 <TextBox x:Name="nickname" Text="某个人" Width="200" Visibility="Collapsed" Margin="0 0 0 10"/>
                 <PasswordBox x:Name="password" PlaceholderText="Password" Width="200" Visibility="Collapsed" Margin="0 0 0 10"/>
                 <PasswordBox x:Name="confirm" PlaceholderText="Confirm Password" Width="200" Visibility="Collapsed"/>

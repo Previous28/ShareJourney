@@ -95,11 +95,19 @@ namespace UWPApp.Helper
             return await GET(api);
         }
 
-        // 用户改名接口
-        public static async Task<JObject> setNickname(string onlineId, string nickname)
+        // 用户改名改密码接口
+        public static async Task<JObject> modify(string onlineId, string nickname, string password)
         {
-            string api = "/api/auth/nickname?onlineId=" + onlineId + "&nickname=" + nickname;
-            return await GET(api);
+            var dict = new Dictionary<string, string>()
+            {
+                { "onlineId", onlineId },
+                { "nickname", nickname }
+            };
+            if (password.Length > 0)
+            {
+                dict["password"] = password;
+            }
+            return await POST("/api/auth/modify", new FormUrlEncodedContent(dict));
         }
 
         // 发布记录接口
