@@ -56,6 +56,7 @@ module.exports = (Record, Online, Favorite, User) => {
         ((i) => {
           User.findById(records[i].userId).then(user => {
             user ? records[i]._doc.userAvatar = user.avatar : ''
+            user ? records[i]._doc.nickname = user.nickname : ''
             count > 1 ? --count : res.json({ result: 'ok', records })
           })
         })(i)
