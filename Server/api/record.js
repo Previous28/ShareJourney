@@ -8,12 +8,21 @@ module.exports = (Record, Online, Favorite, User) => {
       if (!online || !req.body.title || !req.body.content) {
         res.json({ result: 'error' })
       } else {
+        const now = new Date(Date.now())
+        let date = '' + now.getFullYear()
+        date += now.getMonth() < 9 ? '-0' + (now.getMonth() + 1) : '-' + (now.getMonth())
+        date += now.getDate() < 10 ? '-0' + now.getDate() : '-' + now.getDate()
+        date += now.getHours() < 10 ? ' 0' + now.getHours() : ' ' + now.getHours()
+        date += ':' + now.getMinutes()
         new Record({
           title: req.body.title,
           content: req.body.content,
           userId: online.userId,
           favoriteNum: 0,
-          date: Date.now()
+          image: '',
+          audio: '',
+          video: '',
+          date: date
         }).save().then(record => res.json({ result: 'ok', record }))
       }
     }).catch(() => res.json({ result: 'error' }))

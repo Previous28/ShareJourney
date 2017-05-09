@@ -3,7 +3,7 @@ module.exports = (mongoose) => {
   const ObjectId = Schema.ObjectId
 
   const RecordSchema = new Schema({
-    date: Date,
+    date: String,
     title: String,
     image: String,
     audio: String,
