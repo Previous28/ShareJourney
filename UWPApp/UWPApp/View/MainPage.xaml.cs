@@ -15,8 +15,7 @@ namespace UWPApp.View
             InitializeComponent();
             Store.RecordStore.loadAllRecordsFromServer();
             recordList = Store.RecordStore.allRecords;
-            Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
-            avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
+            avatarInTopBar.ImageSource = Store.UserStore.avatar;
         }
 
         private ObservableCollection<Model.Record> recordList = null;

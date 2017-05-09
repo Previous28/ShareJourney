@@ -1,4 +1,6 @@
-﻿namespace UWPApp.Model
+﻿using Windows.UI.Xaml.Media.Imaging;
+
+namespace UWPApp.Model
 {
     public class Record
     {
@@ -9,8 +11,8 @@
         public string image;
         public string audio;
         public string video;
-        public string userAvatar;
         public string date;
         public int favoriteNum;
+        public BitmapImage userAvatar;
     }
 }

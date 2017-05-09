@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.Store
 {
@@ -54,12 +56,13 @@ namespace UWPApp.Store
                 _record.favoriteNum = record["favoriteNum"].ToObject<int>();
                 if (isAll)
                 {
-                    _record.userAvatar = Helper.NetworkHelper.SERVER + record["userAvatar"].ToString();
+                    string avatar = Helper.NetworkHelper.SERVER + record["userAvatar"].ToString();
+                    _record.userAvatar = new BitmapImage(new Uri(avatar));
                     allRecords.Add(_record);
                 }
                 else
                 {
-                    _record.userAvatar = Helper.NetworkHelper.SERVER + UserStore.avatar;
+                    _record.userAvatar = UserStore.avatar;
                     userRecords.Add(_record);
                 }
             }

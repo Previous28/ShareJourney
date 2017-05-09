@@ -67,11 +67,7 @@ namespace UWPApp.View
                     }
                     else
                     {
-                        Store.UserStore.onlineId = res["onlineId"].ToString();
-                        Store.UserStore.username = res["username"].ToString();
-                        Store.UserStore.nickname = res["nickname"].ToString();
-                        Store.UserStore.avatar = res["avatar"].ToString();
-                        Store.UserStore.userId = res["userId"].ToString();
+                        Store.UserStore.setUserInfo(res);
                         (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
                     }
                 }
@@ -93,11 +89,7 @@ namespace UWPApp.View
                     }
                     else
                     {
-                        Store.UserStore.onlineId = res["onlineId"].ToString();
-                        Store.UserStore.username = res["username"].ToString();
-                        Store.UserStore.nickname = res["nickname"].ToString();
-                        Store.UserStore.avatar = res["avatar"].ToString();
-                        Store.UserStore.userId = res["userId"].ToString();
+                        Store.UserStore.setUserInfo(res);
                         (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
                     }
                 }

@@ -18,9 +18,8 @@ namespace UWPApp.View
             recordList = Store.RecordStore.userRecords;
             nicknameText.Text = Store.UserStore.nickname;
             usernameText.Text = Store.UserStore.username;
-            Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
-            avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
-            avatarInContent.ImageSource = new BitmapImage(avatarUri);
+            avatarInTopBar.ImageSource = Store.UserStore.avatar;
+            avatarInContent.ImageSource = Store.UserStore.avatar;
         }
 
         private ObservableCollection<Model.Record> recordList = null;
@@ -34,10 +33,10 @@ namespace UWPApp.View
                 JObject res = await Helper.NetworkHelper.uploadAvatar(file, Store.UserStore.onlineId);
                 if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
                 {
-                    Store.UserStore.avatar = res["path"].ToString();
-                    Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
-                    avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
-                    avatarInContent.ImageSource = new BitmapImage(avatarUri);
+                    Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + res["path"].ToString());
+                    Store.UserStore.avatar = new BitmapImage(avatarUri);
+                    avatarInTopBar.ImageSource = Store.UserStore.avatar;
+                    avatarInContent.ImageSource = Store.UserStore.avatar;
                 }
                 else
                 {
