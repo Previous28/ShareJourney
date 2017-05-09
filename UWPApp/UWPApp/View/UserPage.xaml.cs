@@ -24,6 +24,12 @@ namespace UWPApp.View
 
         private ObservableCollection<Model.Record> recordList = null;
 
+        // 查看某条记录的详情
+        private void goToDetail(object sender, ItemClickEventArgs e)
+        {
+            (Window.Current.Content as Frame).Navigate(typeof(DetailPage), e.ClickedItem);
+        }
+
         // 更换头像
         private async void setAvatar(object sender, RoutedEventArgs e)
         {

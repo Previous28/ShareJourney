@@ -82,7 +82,7 @@
         
         <!--历史记录-->
         <ScrollViewer Grid.Row="4" VerticalAlignment="Top">
-            <ListView ItemsSource="{x:Bind recordList}" Background="#77000000">
+            <ListView ItemsSource="{x:Bind recordList}" Background="#77000000" IsItemClickEnabled="True" ItemClick="goToDetail">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Record">
                         <Grid Height="100">

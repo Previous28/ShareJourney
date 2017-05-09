@@ -5,6 +5,7 @@ using System.IO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Diagnostics;
 
 namespace UWPApp.View
 {
@@ -19,6 +20,12 @@ namespace UWPApp.View
         }
 
         private ObservableCollection<Model.Record> recordList = null;
+
+        // 查看某条记录的详情
+        private void goToDetail(object sender, ItemClickEventArgs e)
+        {
+            (Window.Current.Content as Frame).Navigate(typeof(DetailPage), e.ClickedItem);
+        }
 
         // 页面跳转
         private void goToOtherPage(object sender, RoutedEventArgs e)
