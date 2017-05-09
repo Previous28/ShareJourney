@@ -12,6 +12,7 @@ namespace UWPApp.Model
         public string audio;
         public string video;
         public string date;
+        public string nickname;
         public int favoriteNum;
         public BitmapImage userAvatar;
     }

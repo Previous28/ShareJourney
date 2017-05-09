@@ -58,11 +58,13 @@ namespace UWPApp.Store
                 {
                     string avatar = Helper.NetworkHelper.SERVER + record["userAvatar"].ToString();
                     _record.userAvatar = new BitmapImage(new Uri(avatar));
+                    _record.nickname = record["nickname"].ToString();
                     allRecords.Add(_record);
                 }
                 else
                 {
                     _record.userAvatar = UserStore.avatar;
+                    _record.nickname = UserStore.nickname;
                     userRecords.Add(_record);
                 }
             }
