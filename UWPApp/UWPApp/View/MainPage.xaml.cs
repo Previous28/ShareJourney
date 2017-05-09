@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,12 +13,13 @@ namespace UWPApp.View
         public MainPage()
         {
             InitializeComponent();
-            Data = Store.RecordStore.getInstance();
+            Store.RecordStore.loadAllRecordsFromServer();
+            recordList = Store.RecordStore.allRecords;
             Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
             avatarInTopBar.ImageSource = new BitmapImage(avatarUri);
         }
 
-        private Store.RecordStore Data;
+        private ObservableCollection<Model.Record> recordList = null;
 
         // 页面跳转
         private void goToOtherPage(object sender, RoutedEventArgs e)

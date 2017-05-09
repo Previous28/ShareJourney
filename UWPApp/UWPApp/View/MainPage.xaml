@@ -48,7 +48,7 @@
         
         <!--记录列表-->
         <ScrollViewer Grid.Row="2" VerticalAlignment="Top">
-            <ListView ItemsSource="{x:Bind Data.RECORDS}" Background="#66000000">
+            <ListView ItemsSource="{x:Bind recordList}" Background="#66000000">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Record">
                         <Grid Height="100">
@@ -71,19 +71,19 @@
                                             <ImageBrush ImageSource="../Assets/tmp_head.jpg"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
-                                    <TextBlock Text="11:00 AM" FontSize="18" FontWeight="SemiBold" Margin="0 10 0 0"/>
+                                    <TextBlock Text="{x:Bind date}" FontSize="18" FontWeight="SemiBold" Margin="0 10 0 0"/>
                                 </StackPanel>
 
                                 <!--标题和简述-->
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Padding="30 0 0 0">
-                                    <TextBlock Text="This is a title" FontSize="30"/>
-                                    <TextBlock Text="Some descriptions." FontSize="18"/>
+                                    <TextBlock Text="{x:Bind title}" FontSize="30"/>
+                                    <TextBlock Text="{x:Bind content}" FontSize="18"/>
                                 </StackPanel>
 
                                 <!--点赞人数-->
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0 0 20 0">
                                     <AppBarButton Icon="Like"/>
-                                    <TextBlock Text="65" FontSize="18" TextAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind favoriteNum}" FontSize="18" TextAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
 

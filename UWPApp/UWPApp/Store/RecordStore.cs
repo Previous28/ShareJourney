@@ -1,33 +1,67 @@
-﻿using System.Collections.ObjectModel;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
 
 namespace UWPApp.Store
 {
     public class RecordStore
     {
-        private static RecordStore instance = null;
-        private static readonly object padlock = new object();
+        // 所有记录集合
+        public static ObservableCollection<Model.Record> allRecords = new ObservableCollection<Model.Record>();
 
-        public static RecordStore getInstance ()
+        // 用户历史记录集合
+        public static ObservableCollection<Model.Record> userRecords = new ObservableCollection<Model.Record>();
+
+        // 从服务器加载所有记录
+        public static async void loadAllRecordsFromServer()
         {
-            lock (padlock)
+            JObject res = await Helper.NetworkHelper.allRecords();
+            if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
-                if (instance == null)
-                {
-                    instance = new RecordStore();
-                }
-                return instance;
+                JArray records = JArray.Parse(res["records"].ToString());
+                allRecords.Clear();
+                getRecordsFromJsonArray(records, true);
             }
         }
 
-        // 记录集合
-        private ObservableCollection<Model.Record> AllRecords = new ObservableCollection<Model.Record>();
-        public ObservableCollection<Model.Record> RECORDS { get { return AllRecords; } }
-
-        private RecordStore()
+        // 从服务器加载用户历史记录
+        public static async void loadUserRecordsFromServer()
         {
-            for (int i = 0; i < 10; ++i)
+            JObject res = await Helper.NetworkHelper.recordsOfUser(UserStore.userId);
+            if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
-                AllRecords.Add(new Model.Record());
+                JArray records = JArray.Parse(res["records"].ToString());
+                userRecords.Clear();
+                getRecordsFromJsonArray(records, false);
+            }
+        }
+
+        // 解析 JSON 数组提取记录
+        private static void getRecordsFromJsonArray(JArray jsonArray, bool isAll)
+        {
+            // 解析 JSON 数组
+            for (int i = 0; i < jsonArray.Count; ++i)
+            {
+                JObject record = JObject.Parse(jsonArray[i].ToString());
+                Model.Record _record = new Model.Record();
+                _record.id = record["_id"].ToString();
+                _record.title = record["title"].ToString();
+                _record.content = record["content"].ToString();
+                _record.image = record["image"].ToString();
+                _record.audio = record["audio"].ToString();
+                _record.video = record["video"].ToString();
+                _record.userId = record["userId"].ToString();
+                _record.date = record["date"].ToString().Split(' ')[0];
+                _record.favoriteNum = record["favoriteNum"].ToObject<int>();
+                if (isAll)
+                {
+                    _record.userAvatar = Helper.NetworkHelper.SERVER + record["userAvatar"].ToString();
+                    allRecords.Add(_record);
+                }
+                else
+                {
+                    _record.userAvatar = Helper.NetworkHelper.SERVER + UserStore.avatar;
+                    userRecords.Add(_record);
+                }
             }
         }
     }

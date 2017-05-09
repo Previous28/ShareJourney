@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.ObjectModel;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -13,7 +14,8 @@ namespace UWPApp.View
         public UserPage()
         {
             this.InitializeComponent();
-            Data = Store.RecordStore.getInstance();
+            Store.RecordStore.loadUserRecordsFromServer();
+            recordList = Store.RecordStore.userRecords;
             nicknameText.Text = Store.UserStore.nickname;
             usernameText.Text = Store.UserStore.username;
             Uri avatarUri = new Uri(Helper.NetworkHelper.SERVER + Store.UserStore.avatar);
@@ -21,7 +23,7 @@ namespace UWPApp.View
             avatarInContent.ImageSource = new BitmapImage(avatarUri);
         }
 
-        private Store.RecordStore Data;
+        private ObservableCollection<Model.Record> recordList = null;
 
         // 更换头像
         private async void setAvatar(object sender, RoutedEventArgs e)
