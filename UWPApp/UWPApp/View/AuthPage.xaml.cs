@@ -68,6 +68,7 @@ namespace UWPApp.View
                     else
                     {
                         Store.UserStore.setUserInfo(res);
+                        Store.RecordStore.loadAllRecordsFromServer();
                         (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
                     }
                 }
@@ -90,6 +91,10 @@ namespace UWPApp.View
                     else
                     {
                         Store.UserStore.setUserInfo(res);
+                        // 初始化数据库连接
+                        Helper.LocalDBHelper.initDB();
+                        // 读取本地数据库的缓存数据
+                        Helper.LocalDBHelper.loadAllRecordsFromDB();
                         (Window.Current.Content as Frame).Navigate(typeof(View.MainPage));
                     }
                 }

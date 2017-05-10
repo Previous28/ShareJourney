@@ -14,7 +14,6 @@ namespace UWPApp.View
         public UserPage()
         {
             this.InitializeComponent();
-            Store.RecordStore.loadUserRecordsFromServer();
             recordList = Store.RecordStore.userRecords;
             nicknameText.Text = Store.UserStore.nickname;
             usernameText.Text = Store.UserStore.username;
@@ -129,6 +128,12 @@ namespace UWPApp.View
             {
                 (Window.Current.Content as Frame).Navigate(typeof(EditPage));
             }
+        }
+
+        // 更新用户个人记录
+        private void updateUserRecords(object sender, RoutedEventArgs e)
+        {
+            Store.RecordStore.loadUserRecordsFromServer();
         }
     }
 }

@@ -14,7 +14,6 @@ namespace UWPApp.View
         public MainPage()
         {
             InitializeComponent();
-            Store.RecordStore.loadAllRecordsFromServer();
             recordList = Store.RecordStore.allRecords;
             avatarInTopBar.ImageSource = Store.UserStore.avatar;
         }
@@ -43,6 +42,12 @@ namespace UWPApp.View
             {
                 (Window.Current.Content as Frame).Navigate(typeof(EditPage));
             }
+        }
+
+        // 刷新全部记录
+        private void updateAllRecords(object sender, RoutedEventArgs e)
+        {
+            Store.RecordStore.loadAllRecordsFromServer();
         }
     }
 }

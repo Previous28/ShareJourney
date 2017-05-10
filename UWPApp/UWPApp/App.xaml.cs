@@ -110,7 +110,10 @@ namespace UWPApp
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: 保存应用程序状态并停止任何后台活动
+
+            // 缓存应用数据到本地数据库
+            Helper.LocalDBHelper.savaAllRecordsToDB();
+
             deferral.Complete();
         }
 
