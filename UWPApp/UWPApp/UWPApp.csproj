@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\LocalDBHelper.cs" />
     <Compile Include="Helper\NetworkHelper.cs" />
     <Compile Include="Model\Record.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
