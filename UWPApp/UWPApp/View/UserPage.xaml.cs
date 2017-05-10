@@ -14,7 +14,6 @@ namespace UWPApp.View
         public UserPage()
         {
             this.InitializeComponent();
-            Store.RecordStore.loadUserRecordsFromServer();
             recordList = Store.RecordStore.userRecords;
             nicknameText.Text = Store.UserStore.nickname;
             usernameText.Text = Store.UserStore.username;
@@ -109,6 +108,7 @@ namespace UWPApp.View
             JObject res = await Helper.NetworkHelper.signout(Store.UserStore.onlineId);
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
+                Helper.LocalDBHelper.savaAllRecordsToDB();
                 (Window.Current.Content as Frame).Navigate(typeof(View.AuthPage));
             }
         }
@@ -128,6 +128,28 @@ namespace UWPApp.View
             else if (btn.Name == "edit")
             {
                 (Window.Current.Content as Frame).Navigate(typeof(EditPage));
+            }
+        }
+
+        // 更新用户个人记录
+        private void updateUserRecords(object sender, RoutedEventArgs e)
+        {
+            Store.RecordStore.loadUserRecordsFromServer();
+        }
+
+        // 点赞
+        private async void favorite(object sender, RoutedEventArgs e)
+        {
+            string recordId = (sender as AppBarButton).DataContext.ToString();
+            JObject res = await Helper.NetworkHelper.favorite(Store.UserStore.onlineId, recordId);
+            if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
+            {
+                Store.RecordStore.loadAllRecordsFromServer();
+                Store.RecordStore.loadUserRecordsFromServer();
+            }
+            else
+            {
+                await (new MessageDialog("您已经点过赞啦！")).ShowAsync();
             }
         }
     }

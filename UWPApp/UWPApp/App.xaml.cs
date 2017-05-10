@@ -46,6 +46,7 @@ namespace UWPApp
             }
 #endif
             Frame rootFrame = Window.Current.Content as Frame;
+            Helper.TileHelper.setTile();
 
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
@@ -110,7 +111,10 @@ namespace UWPApp
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: 保存应用程序状态并停止任何后台活动
+
+            // 缓存应用数据到本地数据库
+            Helper.LocalDBHelper.savaAllRecordsToDB();
+
             deferral.Complete();
         }
 

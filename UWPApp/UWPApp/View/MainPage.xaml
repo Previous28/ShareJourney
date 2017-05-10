@@ -35,6 +35,7 @@
             <AppBarButton Grid.Column="0" Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
             <AppBarButton Grid.Column="1" Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
             <AppBarButton Grid.Column="2" Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="3" Icon="Sync" Label="更新" x:Name="update" Click="updateAllRecords"/>
 
             <Ellipse Grid.Column="6" Width="40" Height="40" Margin="0 0 20 0">
                 <Ellipse.Fill>
@@ -82,7 +83,7 @@
 
                                 <!--点赞人数-->
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0 0 20 0">
-                                    <AppBarButton Icon="Like"/>
+                                    <AppBarButton Icon="Like" DataContext="{x:Bind id}" Click="favorite"/>
                                     <TextBlock Text="{x:Bind favoriteNum}" FontSize="18" TextAlignment="Center"/>
                                 </StackPanel>
                             </Grid>

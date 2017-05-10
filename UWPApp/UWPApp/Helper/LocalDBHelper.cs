@@ -1,6 +1,6 @@
 ﻿using SQLitePCL;
 using System;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.Helper
@@ -25,7 +25,7 @@ namespace UWPApp.Helper
                                 Video CHAR(100) NOT NULL,
                                 Date CHAR(20) NOT NULL,
                                 Nickname VARCHAR(100) NOT NULL,
-                                FavoriteNum INTEGER NOT NULL,
+                                FavoriteNum INT NOT NULL,
                                 UserAvatar CHAR(120) NOT NULL
                             );";
             using (var statement = connection.Prepare(sql))
@@ -44,12 +44,12 @@ namespace UWPApp.Helper
         }
 
         // 从本地数据库加载所有记录
-        public static void loadAllRecordsFromDB(
-            ObservableCollection<Model.Record> allRecords,
-            ObservableCollection<Model.Record> userRecords)
+        public static void loadAllRecordsFromDB()
         {
             using (var statement = connection.Prepare("SELECT * FROM Records"))
             {
+                Store.RecordStore.allRecords.Clear();
+                Store.RecordStore.userRecords.Clear();
                 while (SQLiteResult.ROW == statement.Step())
                 {
                     Model.Record record = new Model.Record();
@@ -62,38 +62,38 @@ namespace UWPApp.Helper
                     record.video = (string)statement[6];
                     record.date = (string)statement[7];
                     record.nickname = (string)statement[8];
-                    record.favoriteNum = (int)statement[9];
+                    record.favoriteNum = (long)statement[9];
                     Uri avatar = new Uri((string)statement[10]);
                     record.userAvatar = new BitmapImage(avatar);
-                    allRecords.Add(record);
+                    Store.RecordStore.allRecords.Add(record);
                     if (record.userId == Store.UserStore.userId)
                     {
-                        userRecords.Add(record);
+                        Store.RecordStore.userRecords.Add(record);
                     }
                 }
             }
         }
 
         // 将所有记录存储到本地数据库
-        public static void savaAllRecordsToDB(ObservableCollection<Model.Record> allRecords)
+        public static void savaAllRecordsToDB()
         {
-            for (int i = 0; i < allRecords.Count; ++i)
+            for (int i = 0; i < Store.RecordStore.allRecords.Count; ++i)
             {
                 using (var statement = connection.Prepare(@"INSERT INTO Records
                       (Id, UserId, Title, Content, Image, Audio, Video, Date, Nickname, FavoriteNum, UserAvatar)
                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))
                 {
-                    statement.Bind(0, allRecords[i].id);
-                    statement.Bind(1, allRecords[i].userId);
-                    statement.Bind(2, allRecords[i].title);
-                    statement.Bind(3, allRecords[i].content);
-                    statement.Bind(4, allRecords[i].image);
-                    statement.Bind(5, allRecords[i].audio);
-                    statement.Bind(6, allRecords[i].video);
-                    statement.Bind(7, allRecords[i].date);
-                    statement.Bind(8, allRecords[i].nickname);
-                    statement.Bind(9, allRecords[i].favoriteNum);
-                    statement.Bind(10, allRecords[i].userAvatar.UriSource.ToString());
+                    statement.Bind(1, Store.RecordStore.allRecords[i].id);
+                    statement.Bind(2, Store.RecordStore.allRecords[i].userId);
+                    statement.Bind(3, Store.RecordStore.allRecords[i].title);
+                    statement.Bind(4, Store.RecordStore.allRecords[i].content);
+                    statement.Bind(5, Store.RecordStore.allRecords[i].image);
+                    statement.Bind(6, Store.RecordStore.allRecords[i].audio);
+                    statement.Bind(7, Store.RecordStore.allRecords[i].video);
+                    statement.Bind(8, Store.RecordStore.allRecords[i].date);
+                    statement.Bind(9, Store.RecordStore.allRecords[i].nickname);
+                    statement.Bind(10, Store.RecordStore.allRecords[i].favoriteNum);
+                    statement.Bind(11, Store.RecordStore.allRecords[i].userAvatar.UriSource.ToString());
                     statement.Step();
                 }
             }

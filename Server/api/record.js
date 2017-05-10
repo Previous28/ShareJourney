@@ -94,7 +94,7 @@ module.exports = (Record, Online, Favorite, User) => {
               .save().then(() => res.json({ result: 'ok' }))
             }).catch(() => res.json({ result: 'error' }))
           } else {
-            res.json({ result: 'ok' })
+            res.json({ result: 'error' })
           }
         })
       }
