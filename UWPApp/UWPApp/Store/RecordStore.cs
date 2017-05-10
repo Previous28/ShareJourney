@@ -53,7 +53,7 @@ namespace UWPApp.Store
                 _record.video = record["video"].ToString();
                 _record.userId = record["userId"].ToString();
                 _record.date = record["date"].ToString().Split(' ')[0];
-                _record.favoriteNum = record["favoriteNum"].ToObject<int>();
+                _record.favoriteNum = record["favoriteNum"].ToObject<long>();
                 if (isAll)
                 {
                     string avatar = Helper.NetworkHelper.SERVER + record["userAvatar"].ToString();

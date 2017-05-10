@@ -1,5 +1,6 @@
 ﻿using SQLitePCL;
 using System;
+using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.Helper
@@ -24,7 +25,7 @@ namespace UWPApp.Helper
                                 Video CHAR(100) NOT NULL,
                                 Date CHAR(20) NOT NULL,
                                 Nickname VARCHAR(100) NOT NULL,
-                                FavoriteNum INTEGER NOT NULL,
+                                FavoriteNum INT NOT NULL,
                                 UserAvatar CHAR(120) NOT NULL
                             );";
             using (var statement = connection.Prepare(sql))
@@ -47,6 +48,8 @@ namespace UWPApp.Helper
         {
             using (var statement = connection.Prepare("SELECT * FROM Records"))
             {
+                Store.RecordStore.allRecords.Clear();
+                Store.RecordStore.userRecords.Clear();
                 while (SQLiteResult.ROW == statement.Step())
                 {
                     Model.Record record = new Model.Record();
@@ -59,7 +62,7 @@ namespace UWPApp.Helper
                     record.video = (string)statement[6];
                     record.date = (string)statement[7];
                     record.nickname = (string)statement[8];
-                    record.favoriteNum = Convert.ToInt32(statement[9]);
+                    record.favoriteNum = (long)statement[9];
                     Uri avatar = new Uri((string)statement[10]);
                     record.userAvatar = new BitmapImage(avatar);
                     Store.RecordStore.allRecords.Add(record);

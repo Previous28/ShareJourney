@@ -6,6 +6,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using Windows.UI.Popups;
 
 namespace UWPApp.View
 {
@@ -48,6 +50,22 @@ namespace UWPApp.View
         private void updateAllRecords(object sender, RoutedEventArgs e)
         {
             Store.RecordStore.loadAllRecordsFromServer();
+        }
+
+        // 点赞
+        private async void favorite(object sender, RoutedEventArgs e)
+        {
+            string recordId = (sender as AppBarButton).DataContext.ToString();
+            JObject res = await Helper.NetworkHelper.favorite(Store.UserStore.onlineId, recordId);
+            if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
+            {
+                Store.RecordStore.loadAllRecordsFromServer();
+                Store.RecordStore.loadUserRecordsFromServer();
+            }
+            else
+            {
+                await (new MessageDialog("您已经点过赞了！")).ShowAsync();
+            }
         }
     }
 }

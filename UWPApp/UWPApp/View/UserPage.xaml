@@ -117,7 +117,7 @@
 
                                 <!--点赞人数-->
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0 0 20 0">
-                                    <AppBarButton Icon="Like"/>
+                                    <AppBarButton Icon="Like" DataContext="{x:Bind id}" Click="favorite"/>
                                     <TextBlock Text="{x:Bind favoriteNum}" FontSize="18" TextAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
