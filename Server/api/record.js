@@ -13,7 +13,7 @@ module.exports = (Record, Online, Favorite, User) => {
         date += now.getMonth() < 9 ? '-0' + (now.getMonth() + 1) : '-' + (now.getMonth())
         date += now.getDate() < 10 ? '-0' + now.getDate() : '-' + now.getDate()
         date += now.getHours() < 10 ? ' 0' + now.getHours() : ' ' + now.getHours()
-        date += ':' + now.getMinutes()
+        date +=  now.getMinutes() < 10 ? ':0' + now.getMinutes() : ':' + now.getMinutes()
         new Record({
           title: req.body.title,
           content: req.body.content,
@@ -57,7 +57,7 @@ module.exports = (Record, Online, Favorite, User) => {
           User.findById(records[i].userId).then(user => {
             user ? records[i]._doc.userAvatar = user.avatar : ''
             user ? records[i]._doc.nickname = user.nickname : ''
-            count > 1 ? --count : res.json({ result: 'ok', records })
+            count > 1 ? --count : res.json({ result: 'ok', records: records.reverse() })
           })
         })(i)
       }
@@ -107,7 +107,7 @@ module.exports = (Record, Online, Favorite, User) => {
       res.json({ result: 'error' })
     } else {
       Record.find({ userId: req.query.userId }).then(records => {
-        res.json({ result: 'ok', records })
+        res.json({ result: 'ok', records: records.reverse() })
       }).catch(() => res.json({ result: 'error' }))
     }
   })
