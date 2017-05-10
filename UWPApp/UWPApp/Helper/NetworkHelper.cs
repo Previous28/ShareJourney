@@ -16,7 +16,8 @@ namespace UWPApp.Helper
     class NetworkHelper
     {
         // 服务器域名配置
-        public static string SERVER = "http://118.89.35.155:8080";
+        //public static string SERVER = "http://118.89.35.155:8080";
+        public static string SERVER = "http://192.168.199.135:8080";
 
         // 操作结果成功与失败的标志
         public static string SUCCESS = "ok";
@@ -123,14 +124,14 @@ namespace UWPApp.Helper
         // 查看所有记录接口
         public static async Task<JObject> allRecords()
         {
-            return await GET("/api/record/all");
+            return await GET("/api/record/all?time=" + DateTime.Now.Ticks);
         }
 
         // 查询记录详情接口
         public static async Task<JObject> recordDetail(string recordId)
         {
             string api = "/api/record/detail?recordId=" + recordId;
-            return await GET(api);
+            return await GET(api + "&time=" + DateTime.Now.Ticks);
         }
 
         // 点赞接口
@@ -144,7 +145,7 @@ namespace UWPApp.Helper
         public static async Task<JObject> recordsOfUser(string userId)
         {
             string api = "/api/record/records-of-user?userId=" + userId;
-            return await GET(api);
+            return await GET(api + "&time=" + DateTime.Now.Ticks);
         }
 
         // 上传图片接口
