@@ -92,10 +92,10 @@
 
                 <!--用于输入文本的两个富文本框-->
                 <Grid Grid.Row="1">
-                    <RichEditBox x:Name="tital" Height="20" Margin="20, 0, 20, 20" VerticalAlignment="Top" PlaceholderText="Title"></RichEditBox>
+                    <TextBox x:Name="title" Height="20" Margin="20, 0, 20, 20" VerticalAlignment="Top" PlaceholderText="Title"></TextBox>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <RichEditBox x:Name="details" Height="140" Margin="20, 44, 20, 20" PlaceholderText="Content"></RichEditBox>
+                    <TextBox x:Name="content" Height="140" Margin="20, 44, 20, 20" PlaceholderText="Content"></TextBox>
                 </Grid>
 
 
@@ -109,35 +109,12 @@
                     </Grid.ColumnDefinitions>
 
                     <!--暂存分享的图片-->
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="../Assets/imageForEditPage1.png" Margin="0, 0, 3, 3"></Image>
-                            <Image Grid.Column="1" Source="../Assets/imageForEditPage1.png" Margin="3, 0, 0, 3" ></Image>
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="../Assets/imageForEditPage1.png" Margin="0, 3, 3, 0"></Image>
-                            <Image Grid.Column="1" Source="../Assets/imageForEditPage1.png" Margin="3, 3, 0, 0"></Image>
-                        </Grid>
-                    </Grid>
+                    <Image Grid.Column="0" x:Name="image" Source="../Assets/imageForEditPage1.png"></Image>
 
                     <!--暂存分享的音乐-->
-                    <Image Grid.Column="1" Source="../Assets/imageForEditPage2.png"></Image>
+                    <Image Grid.Column="1" x:Name="audio" Source="../Assets/imageForEditPage2.png"></Image>
                     <!--暂存分享的小视频-->
-                    <Image Grid.Column="2" Source="../Assets/imageForEditPage3.png"></Image>
+                    <Image Grid.Column="2" x:Name="video" Source="../Assets/imageForEditPage3.png"></Image>
                 </Grid>
 
                 <!--模块：选择文件（图片、音乐、视频）-->
