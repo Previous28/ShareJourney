@@ -92,7 +92,6 @@ namespace UWPApp.Helper
                     statement.Bind(7, Store.RecordStore.allRecords[i].video);
                     statement.Bind(8, Store.RecordStore.allRecords[i].date);
                     statement.Bind(9, Store.RecordStore.allRecords[i].nickname);
-                    Debug.WriteLine(Store.RecordStore.allRecords[i].favoriteNum);
                     statement.Bind(10, Store.RecordStore.allRecords[i].favoriteNum);
                     statement.Bind(11, Store.RecordStore.allRecords[i].userAvatar.UriSource.ToString());
                     statement.Step();

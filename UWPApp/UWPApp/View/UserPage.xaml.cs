@@ -60,11 +60,19 @@ namespace UWPApp.View
                 if (nickname.Text.Length == 0)
                 {
                     await (new MessageDialog("请输入昵称！")).ShowAsync();
+                    return;
                 }
                 // 密码输入不一致
                 else if (password.Password != confirm.Password)
                 {
                     await (new MessageDialog("密码和确认密码不一致！")).ShowAsync();
+                    return;
+                }
+                // 密码长度不合法
+                else if (password.Password.Length > 0 && (password.Password.Length < 8 || password.Password.Length > 15))
+                {
+                    await (new MessageDialog("密码长度为8-15个字符！")).ShowAsync();
+                    return;
                 }
                 // 需要更新信息
                 else if (nickname.Text != Store.UserStore.nickname || password.Password.Length > 0)
