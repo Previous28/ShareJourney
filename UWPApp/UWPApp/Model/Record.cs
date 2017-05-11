@@ -13,7 +13,7 @@ namespace UWPApp.Model
         public string video;
         public string date;
         public string nickname;
-        public long favoriteNum;
+        public string favoriteNum;
         public BitmapImage userAvatar;
     }
 }

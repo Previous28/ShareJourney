@@ -137,7 +137,7 @@ namespace UWPApp.Helper
         public static async Task<JObject> favorite(string onlineId, string recordId)
         {
             string api = "/api/record/favorite?onlineId=" + onlineId + "&recordId=" + recordId;
-            return await GET(api);
+            return await GET(api + "&time=" + DateTime.Now.Ticks);
         }
 
         // 查询用户记录接口
