@@ -20,13 +20,13 @@ namespace UWPApp.Helper
                                 UserId CHAR(30) NOT NULL,
                                 Title VARCHAR(100) NOT NULL,
                                 Content VARCHAR(1000) NOT NULL,
-                                Image CHAR(100) NOT NULL,
-                                Audio CHAR(100) NOT NULL,
-                                Video CHAR(100) NOT NULL,
-                                Date CHAR(20) NOT NULL,
+                                Image VARCHAR(100) NOT NULL,
+                                Audio VARCHAR(100) NOT NULL,
+                                Video VARCHAR(100) NOT NULL,
+                                Date VARCHAR(20) NOT NULL,
                                 Nickname VARCHAR(100) NOT NULL,
-                                FavoriteNum INT NOT NULL,
-                                UserAvatar CHAR(120) NOT NULL
+                                FavoriteNum CHAR(10) NOT NULL,
+                                UserAvatar VARCHAR(120) NOT NULL
                             );";
             using (var statement = connection.Prepare(sql))
             {
@@ -62,7 +62,7 @@ namespace UWPApp.Helper
                     record.video = (string)statement[6];
                     record.date = (string)statement[7];
                     record.nickname = (string)statement[8];
-                    record.favoriteNum = (long)statement[9];
+                    record.favoriteNum = (string)statement[9];
                     Uri avatar = new Uri((string)statement[10]);
                     record.userAvatar = new BitmapImage(avatar);
                     Store.RecordStore.allRecords.Add(record);
