@@ -56,9 +56,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <AppBarButton Grid.Column="0" Icon="Home" Label="主页" x:Name="main" Click="goToOtherPage"/>
-            <AppBarButton Grid.Column="1" Icon="Contact" Label="我的" x:Name="user" Click="goToOtherPage"/>
-            <AppBarButton Grid.Column="2" Icon="Send" Label="发布" x:Name="edit" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="0" Icon="Home" x:Name="main" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="1" Icon="Contact" x:Name="user" Click="goToOtherPage"/>
+            <AppBarButton Grid.Column="2" Icon="Send" x:Name="edit" Click="goToOtherPage"/>
 
             <Ellipse Grid.Column="6" Width="40" Height="40" Margin="0 0 20 0">
                 <Ellipse.Fill>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Core;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -48,8 +49,11 @@ namespace UWPApp.View
             {
                 if ((Window.Current.Content as Frame).CanGoBack && e.Handled == false)
                 {
-                    e.Handled = true;
-                    (Window.Current.Content as Frame).GoBack();
+                    if ((Window.Current.Content as Frame).CurrentSourcePageType != typeof(AuthPage))
+                    {
+                        e.Handled = true;
+                        (Window.Current.Content as Frame).GoBack();
+                    }
                 }
             }
         }
@@ -104,28 +108,23 @@ namespace UWPApp.View
             if (currentRecord.audio != "")
             {
                 //宽屏
-                musicBg1.Visibility = Visibility.Visible;
-                timelineSlider1.Visibility = Visibility.Visible;
-                play1.Visibility = Visibility.Visible;
+                player1.Visibility = Visibility.Visible;
+
                 //窄屏
-                musicBg2.Visibility = Visibility.Visible;
-                timelineSlider2.Visibility = Visibility.Visible;
-                play2.Visibility = Visibility.Visible;
+                player2.Visibility = Visibility.Visible;
                 string newSource = Helper.NetworkHelper.SERVER + currentRecord.audio;
-                mediaElement1.Source = mediaElement2.Source = new Uri(newSource);
+                player1.Source = player2.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
             }
             if (currentRecord.video != "")
             {
                 //宽屏
-                mediaElement1.Visibility = Visibility.Visible;
-                timelineSlider1.Visibility = Visibility.Visible;
-                play1.Visibility = Visibility.Visible;
+                player1.Visibility = Visibility.Visible;
+                
                 //窄屏
-                mediaElement2.Visibility = Visibility.Visible;
-                timelineSlider2.Visibility = Visibility.Visible;
-                play2.Visibility = Visibility.Visible;
+                player2.Visibility = Visibility.Visible;
+                
                 string newSource = Helper.NetworkHelper.SERVER + currentRecord.video;
-                mediaElement1.Source = mediaElement2.Source = new Uri(newSource);
+                player1.Source = player2.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
             }
             //同步点赞数
             favoriteNum.Text = currentRecord.favoriteNum;
@@ -135,7 +134,7 @@ namespace UWPApp.View
             {
                 JObject records = JObject.Parse(res["record"].ToString());
                 JArray favoriters = JArray.Parse(records["favoriter"].ToString());
-                
+
                 gridView.IsItemClickEnabled = false;
                 gridView.Name = "gridView";
                 gridView.Margin = new Thickness(30, 0, 0, 0);
@@ -156,92 +155,11 @@ namespace UWPApp.View
             }
         }
 
-        //定义媒体播放器的一些逻辑
-        private void ElementMediaOpened(object sender, RoutedEventArgs e)
-        {
-            var ts = mediaElement1.NaturalDuration.TimeSpan;
-            timelineSlider1.Maximum = ts.TotalMilliseconds;
-            timelineSlider2.Maximum = ts.TotalMilliseconds;
-        }
-
-        private void ElementMediaEnded(object sender, RoutedEventArgs e)
-        {
-            if (pause1.Visibility == Visibility.Visible)
-            {
-                mediaElement1.Stop();
-                play1.Visibility = Visibility.Visible;
-                pause1.Visibility = Visibility.Collapsed;
-            }
-
-            if (pause2.Visibility == Visibility.Visible)
-            {
-                mediaElement2.Stop();
-                play2.Visibility = Visibility.Visible;
-                pause2.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void SeekMediaPosition(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            int SliderValue1 = (int)timelineSlider1.Value;
-            int SliderValue2 = (int)timelineSlider2.Value;
-
-            TimeSpan ts1 = new TimeSpan(0, 0, 0, 0, SliderValue1);
-            mediaElement1.Position = ts1;
-            TimeSpan ts2 = new TimeSpan(0, 0, 0, 0, SliderValue2);
-            mediaElement2.Position = ts2;
-        }
-
-        private void playClick(object sender, RoutedEventArgs e)
-        {
-            if (widePart.Visibility == Visibility.Visible)
-            {
-                mediaElement1.Play();
-                play1.Visibility = Visibility.Collapsed;
-                pause1.Visibility = Visibility.Visible;
-            }
-            if (narrowPart.Visibility == Visibility.Visible)
-            {
-                mediaElement2.Play();
-                play2.Visibility = Visibility.Collapsed;
-                pause2.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void pauseClick(object sender, RoutedEventArgs e)
-        {
-            if (widePart.Visibility == Visibility.Visible)
-            {
-                mediaElement1.Pause();
-                play1.Visibility = Visibility.Visible;
-                pause1.Visibility = Visibility.Collapsed;
-            }
-            if (narrowPart.Visibility == Visibility.Visible)
-            {
-                mediaElement2.Pause();
-                play2.Visibility = Visibility.Visible;
-                pause2.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void myMediaElementLoaded(object sender, RoutedEventArgs e)
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
-            timer.Tick += (ss, ee) =>
-            {
-                //显示当前视频进度
-                var ts1 = mediaElement1.Position;
-                timelineSlider1.Value = ts1.TotalMilliseconds;
-                var ts2 = mediaElement2.Position;
-                timelineSlider2.Value = ts2.TotalMilliseconds;
-            };
-            timer.Start();
-        }
+        
 
         //把输入的结果转换成int类型
         int toInt(string str)
-        {                 
+        {
             int temp = 0, tobe = 0;
             for (int i = 0; i < str.Length; ++i)
             {
@@ -271,7 +189,7 @@ namespace UWPApp.View
             }
             else
             {
-                await(new MessageDialog("您已经点过赞了！")).ShowAsync();
+                await (new MessageDialog("您已经点过赞了！")).ShowAsync();
             }
         }
     }
