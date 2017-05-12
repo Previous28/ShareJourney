@@ -139,10 +139,10 @@ namespace UWPApp.View
             }
         }
 
-        // 更新用户个人记录
-        private void updateUserRecords(object sender, RoutedEventArgs e)
+        // 更新记录
+        private void updateAllRecords(object sender, RoutedEventArgs e)
         {
-            Store.RecordStore.loadUserRecordsFromServer();
+            Store.RecordStore.loadAllRecordsFromServer();
         }
 
         // 点赞
@@ -153,11 +153,25 @@ namespace UWPApp.View
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
                 Store.RecordStore.loadAllRecordsFromServer();
-                Store.RecordStore.loadUserRecordsFromServer();
             }
             else
             {
                 await (new MessageDialog("您已经点过赞啦！")).ShowAsync();
+            }
+        }
+
+        // 删除记录
+        private async void deleteRecord(object sender, RoutedEventArgs e)
+        {
+            string recordId = (sender as AppBarButton).DataContext.ToString();
+            JObject res = await Helper.NetworkHelper.deleteRecord(Store.UserStore.onlineId, recordId);
+            if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
+            {
+                Store.RecordStore.loadAllRecordsFromServer();
+            }
+            else
+            {
+                await (new MessageDialog("删除失败！")).ShowAsync();
             }
         }
     }

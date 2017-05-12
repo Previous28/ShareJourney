@@ -35,7 +35,7 @@ module.exports = (Online, FileOP, User, Record) => {
         res.json({ result: 'error' })
       } else {
         let oldPath = path.join(__dirname, '../static/' + type, req.file.filename)
-        let newName = '/static/' + type + '/' + online.userId + '_' + Date.now() + '_' + req.file.originalname
+        let newName = '/static/' + type + '/' + online.userId + '_' + Date.now() + '_' + req.file.originalname.split(' ').join('')
         let newPath = path.join(__dirname, '../' + newName)
         FileOP.rename(oldPath, newPath).then(() => {
           if (type === 'avatar') {// 上传头像
@@ -45,13 +45,13 @@ module.exports = (Online, FileOP, User, Record) => {
             let update = (
               type === 'image' ? { $set: { image: newName } } :
               type === 'audio' ? { $set: { audio: newName } } :
-              tyep === 'video' ? { $set: { video: newName } } : {}
+              type === 'video' ? { $set: { video: newName } } : {}
             )
             Record.findByIdAndUpdate(req.query.recordId, update)
             .then(() => res.json({ result: 'ok', path: newName }))
           }
         }).catch((err) => {
-          FileOP.delete(oldPath)
+          FileOP.delete(newPath)
           console.log('File upload error.', err)
           res.json({ result: 'error' })
         })
