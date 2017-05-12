@@ -1,5 +1,17 @@
-# Share Journey 嘻游记
-> TAGs：分享、旅行记录、UWP Midterm project
+# Share Journey
+> TAGs：分享、记录、UWP Midterm project
+
+```txt
+项目启动方法简介：
+1. 安装 MongoDB，在本地运行一个数据库服务，在27017端口提供服务
+2. 进入本项目的 Server/ 文件夹下，启动服务器，启动命令为 "npm start"
+3. 修改 UWPApp/UWPApp/Helper/NetworkHelper.cs 第 15 行代码，将 SERVER 指向你本地服务器的地址
+4. 进入 UWPApp/ 文件夹，使用 Visiual Studio 打开 UWPApp.sln 并运行
+
+可能的异常情况：
+1. 运行失败，请先检查自己的VS是否曾安装过 UWPApp/UWPApp/project.json 里面的依赖，如果有请卸载后重新安装
+2. 登录注册时候提示网络错误或服务器关闭，请先检查服务器是否能够正常访问，SERVER 链接是否正确
+```
 
 ## 1、协作规范
 #### 1.1、准备工作
@@ -86,14 +98,15 @@ git push origin master
 ├─images-for-readme: 存放README中需要的图片文件
 ├─Server: 服务端源码
 │   ├─api: RESTful接口
-│   │   ├─auth.js: 登录注册等权限相关api
-│   │   ├─record.js: 发布记录、查看记录等api
-│   │   └─upload.js: 文件上传api
+│   │   ├─auth.js: 登录、注册、修改信息等权限相关api
+│   │   ├─record.js: 发布、查看、删除记录以及点赞等api
+│   │   └─upload.js: 图片、音频、视频上传api
 │   ├─model: 数据模型
-│   │   ├─user.js: 用户数据操作相关接口
-│   │   ├─record.js: 记录数据操作相关接口
-│   │   ├─favorite.js: 点赞关系数据操作相关接口
-│   │   └─file.js: 文件操作相关接口
+│   │   ├─user.js
+│   │   ├─record.js
+│   │   ├─favorite.js
+│   │   ├─file.js
+│   │   └─online.js
 │   ├─static: 图片、音频、视频等静态文件
 │   ├─index.js: 服务器配置和启动文件
 │   └─package.json: NodeJS包管理文件
@@ -102,12 +115,15 @@ git push origin master
 │   │   ├─Assets: 静态资源文件，例如图片
 │   │   ├─Helper: 工具库
 │   │   │   ├─FileHelper.cs: 封装文件操作相关工具方法
-│   │   │   └─NetworkHelper.cs: 封装网络访问相关工具方法
+│   │   │   ├─LocalDBHelper.cs: 封装操作本地SQLite数据库相关的工具方法
+│   │   │   ├─NetworkHelper.cs: 封装访问服务器接口的相关工具方法
+│   │   │   └─TileHelper.cs: 封装更新磁贴的相关工具方法
 │   │   ├─Model: 应用的数据模型
 │   │   │   └─Record.cs: 记录的数据模型
 │   │   ├─Properties
 │   │   ├─Store: 应用的全局数据状态管理
-│   │   │   └─RecordStore.cs: 所有记录的数据状态管理
+│   │   │   ├─RecordStore.cs: 所有记录的数据状态管理
+│   │   │   └─UserStore.cs: 存储当前在线用户信息
 │   │   ├─View: 应用的视图文件
 │   │   │   ├─AuthPage.xaml: 权限界面
 │   │   │   ├─AuthPage.xaml.cs: 权限界面的业务逻辑
