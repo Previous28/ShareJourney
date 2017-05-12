@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -32,6 +34,7 @@ namespace UWPApp.View
         private Model.Record currentRecord;
         GridView gridView = new GridView();
         private bool isEdit = false;
+        private DataTransferManager dataTransferManager;
 
         public DetailPage()
         {
@@ -153,9 +156,15 @@ namespace UWPApp.View
                 //获取更详细的发布时间
                 publishTime.Text = records["date"].ToString();
             }
+
+            dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += dataRequested;
         }
 
-        
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            dataTransferManager.DataRequested -= dataRequested;
+        }
 
         //把输入的结果转换成int类型
         int toInt(string str)
@@ -190,6 +199,36 @@ namespace UWPApp.View
             else
             {
                 await (new MessageDialog("您已经点过赞了！")).ShowAsync();
+            }
+        }
+
+        // 分享记录
+        private void shareRecord(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void dataRequested(DataTransferManager sender, DataRequestedEventArgs e)
+        {
+            DataRequest request = e.Request;
+            request.Data.Properties.Title = currentRecord.title;
+            request.Data.Properties.Description = currentRecord.content;
+            request.Data.SetText(currentRecord.content);
+            if (currentRecord.image.Length > 0)
+            {
+                Uri imageUri = new Uri(Helper.NetworkHelper.SERVER + currentRecord.image);
+                RandomAccessStreamReference image = RandomAccessStreamReference.CreateFromUri(imageUri);
+                request.Data.SetBitmap(image);
+            }
+            else if (currentRecord.audio.Length > 0)
+            {
+                string audioUri = Helper.NetworkHelper.SERVER + currentRecord.audio;
+                request.Data.SetText(currentRecord.content + " " + audioUri);
+            }
+            else if (currentRecord.video.Length > 0)
+            {
+                string videoUri = Helper.NetworkHelper.SERVER + currentRecord.video;
+                request.Data.SetText(currentRecord.content + " " + videoUri);
             }
         }
     }
