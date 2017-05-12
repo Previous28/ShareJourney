@@ -34,15 +34,6 @@ namespace UWPApp.Helper
             }
         }
 
-        // 清空数据库
-        public static void clearDB()
-        {
-            using (var statement = connection.Prepare("TRUNCATE TABLE Records"))
-            {
-                statement.Step();
-            }
-        }
-
         // 从本地数据库加载所有记录
         public static void loadAllRecordsFromDB()
         {
@@ -77,6 +68,12 @@ namespace UWPApp.Helper
         // 将所有记录存储到本地数据库
         public static void savaAllRecordsToDB()
         {
+            // 先清空数据库原有记录
+            using (var statement = connection.Prepare("DELETE FROM Records"))
+            {
+                statement.Step();
+            }
+            // 将所有记录存储到本地数据库
             for (int i = 0; i < Store.RecordStore.allRecords.Count; ++i)
             {
                 using (var statement = connection.Prepare(@"INSERT INTO Records
