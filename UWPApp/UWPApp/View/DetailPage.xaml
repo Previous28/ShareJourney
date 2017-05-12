@@ -32,7 +32,7 @@
                 </VisualState>
                 <VisualState x:Name="wide">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="950" />
+                        <AdaptiveTrigger MinWindowWidth="850" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="widePart.Visibility" Value="Visible"/>
@@ -69,30 +69,30 @@
         </Grid>
 
 
-        <!--应用窗口宽度大于950时的显示内容-->
-        <Grid Grid.Row="1" VerticalAlignment="Center" x:Name="widePart">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!--应用窗口宽度大于850时的显示内容-->
+        <ScrollViewer Grid.Row="1">
+            <Grid VerticalAlignment="Center" x:Name="widePart">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <!--分享图片模块-->
-            <Image Grid.Column="0" Width="580"  Margin="40, 30, 0, 30" x:Name="image1" Visibility="Collapsed"></Image>
+                <!--分享图片模块-->
+                <Image Grid.Column="0" Width="580"  Margin="40, 30, 0, 30" x:Name="image1" Visibility="Collapsed"></Image>
 
-            <!--媒体播放器-->
-            <MediaPlayerElement Grid.Column="0" AutoPlay="False" x:Name="player1" Margin="40, 30, 0, 30"
+                <!--媒体播放器-->
+                <MediaPlayerElement Grid.Column="0" AutoPlay="False" x:Name="player1" Margin="40, 30, 0, 30"
                             AreTransportControlsEnabled="True" PosterSource="../Assets/musicBg.jpg" Visibility="Collapsed"
                             HorizontalAlignment="Left" VerticalAlignment="Top" Height="350" Width="580" Stretch="Fill">
-                <MediaPlayerElement.TransportControls>
-                    <MediaTransportControls IsCompact="True"
+                    <MediaPlayerElement.TransportControls>
+                        <MediaTransportControls IsCompact="True"
                                         IsStopButtonVisible="True" IsStopEnabled="True"
                                         IsZoomButtonVisible="False"/>
-                </MediaPlayerElement.TransportControls>
-            </MediaPlayerElement>
+                    </MediaPlayerElement.TransportControls>
+                </MediaPlayerElement>
 
-            <!--文字描述部分-->
-            <ScrollViewer Grid.Column="1" VerticalAlignment="Top" Margin="0 30 0 30">
-                <Grid Grid.Column="1">
+                <!--文字描述部分-->
+                <Grid Grid.Column="1" Margin="0 30 0 30">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -105,10 +105,10 @@
                                FontFamily="微软雅黑" Foreground="White" FontSize="18">
                     </TextBlock>
                 </Grid>
-            </ScrollViewer>
-        </Grid>
+            </Grid>
+        </ScrollViewer>
 
-        <!--应用窗口宽度小于950时的显示内容-->
+        <!--应用窗口宽度小于850时的显示内容-->
         <ScrollViewer Grid.Row="1" VerticalAlignment="Top">
             <Grid Grid.Row="1" x:Name="narrowPart" Visibility="Collapsed">
                 <Grid.RowDefinitions>
@@ -129,7 +129,6 @@
                                FontFamily="微软雅黑" Foreground="White" FontSize="18">
                     </TextBlock>
                 </Grid>
-
 
                 <!--媒体播放器-->
                 <MediaPlayerElement Grid.Row="1" AutoPlay="False" x:Name="player2" Margin="0 20 0 20"

@@ -1,6 +1,5 @@
 ﻿using SQLitePCL;
 using System;
-using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.Helper

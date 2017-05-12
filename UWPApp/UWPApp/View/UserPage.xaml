@@ -33,7 +33,7 @@
             <StackPanel Grid.Column="0" VerticalAlignment="Center" Orientation="Horizontal">
                 <AppBarButton Grid.Column="0" Icon="Home" x:Name="main" Click="goToOtherPage"/>
                 <AppBarButton Grid.Column="1" Icon="Contact" x:Name="user" Click="goToOtherPage"/>
-                <AppBarButton Grid.Column="2" Icon="Send" x:Name="edit" Click="goToOtherPage"/>
+                <AppBarButton Grid.Column="2" Icon="Edit" x:Name="edit" Click="goToOtherPage"/>
                 <AppBarButton Grid.Column="3" Icon="Sync" x:Name="update" Click="updateAllRecords"/>
             </StackPanel>
 
