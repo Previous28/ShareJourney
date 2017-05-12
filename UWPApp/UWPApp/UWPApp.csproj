@@ -126,28 +126,19 @@
     <None Include="UWPApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\cancel.png" />
-    <Content Include="Assets\favourite.png" />
+    <Content Include="Assets\audioPicked.png" />
     <Content Include="Assets\imageForEditPage1.png" />
     <Content Include="Assets\imageForEditPage2.png" />
     <Content Include="Assets\imageForEditPage3.png" />
+    <Content Include="Assets\imagePicked.png" />
     <Content Include="Assets\main.jpg" />
     <Content Include="Assets\musicBg.jpg" />
-    <Content Include="Assets\pickMusic.png" />
-    <Content Include="Assets\pickPicture.png" />
-    <Content Include="Assets\pickVideo.png" />
-    <Content Include="Assets\play.png" />
-    <Content Include="Assets\post.png" />
-    <Content Include="Assets\publish.png" />
-    <Content Include="Assets\stop.png" />
     <Content Include="Assets\testPic1.jpg" />
-    <Content Include="Assets\testPic2.jpg" />
-    <Content Include="Assets\testPic3.jpg" />
-    <Content Include="Assets\testPic4.jpg" />
     <Content Include="Assets\tile-bg-large.jpg" />
     <Content Include="Assets\tile-bg-mid.jpg" />
     <Content Include="Assets\tile-bg-small.jpg" />
     <Content Include="Assets\tmp_head.jpg" />
+    <Content Include="Assets\videoPicked.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
