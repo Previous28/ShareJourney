@@ -151,3 +151,25 @@ git push origin master
 * MDV/MVVM: model-driven-view，数据驱动视图。所有界面的渲染都由数据驱动，界面根据数据进行渲染，用户操作界面后产生的数据更新会同步到应用数据上，数据变化引起界面渲染更新。这里的思想与MVVM差别不大。
 * 全局数据状态管理：整个应用的数据处于一个全局的位置，即Store。无论处于应用的哪个界面，所使用所操作的数据都来自同一个Store。为了实现这种全局状态管理，需要依赖单例模式，所以封装在Store文件夹下的类都需要实现为单例，并且保证线程安全。
 * SoC: 关注点分离。每个模块负责相应的逻辑，为了更好地解耦合，将各部分逻辑拆分，文件访问单独封装，网络访问单独封装，数据库操作单独封装，状态管理单独封装，每个xaml文件对应的cs文件里面只负责处理本界面下的逻辑。
+
+## 6、知识点汇总
+#### 服务端
+* express 服务器搭建
+* multer 中间件处理文件上传
+* swagger UI 接口文档
+* mongoose 数据库工具库
+* crypto 加密
+#### 客户端
+* Adaptive UI
+* Data Binding
+* SQLite 本地数据库
+* App to app communication
+* 网络访问，GET 请求、普通表单 POST 和 文件表单 POST 请求
+* 文件选择、读取
+* 更新磁贴
+* ListView、GridView 列表模板渲染
+* Grid、StackPanel 布局
+* JSON 数据处理
+* Ellipse、Line 画图控件
+* 多媒体播放、TransportControls
+* 界面跳转以及参数传递、界面回退
