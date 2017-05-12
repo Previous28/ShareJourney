@@ -139,10 +139,10 @@ namespace UWPApp.View
             }
         }
 
-        // 更新用户个人记录
+        // 更新记录
         private void updateUserRecords(object sender, RoutedEventArgs e)
         {
-            Store.RecordStore.loadUserRecordsFromServer();
+            Store.RecordStore.loadAllRecordsFromServer();
         }
 
         // 点赞
@@ -153,7 +153,6 @@ namespace UWPApp.View
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
                 Store.RecordStore.loadAllRecordsFromServer();
-                Store.RecordStore.loadUserRecordsFromServer();
             }
             else
             {

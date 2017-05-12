@@ -60,7 +60,6 @@ namespace UWPApp.View
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
                 Store.RecordStore.loadAllRecordsFromServer();
-                Store.RecordStore.loadUserRecordsFromServer();
             }
             else
             {
