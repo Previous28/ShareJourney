@@ -30,10 +30,28 @@ namespace UWPApp.View
     {
         private Model.Record currentRecord;
         GridView gridView = new GridView();
+        private bool isEdit = false;
 
         public DetailPage()
         {
             this.InitializeComponent();
+        }
+
+        private void goBackToLastPage(object sender, BackRequestedEventArgs e)
+        {
+            if (isEdit)
+            {
+                (Window.Current.Content as Frame).Navigate(typeof(MainPage));
+                isEdit = false;
+            }
+            else
+            {
+                if ((Window.Current.Content as Frame).CanGoBack && e.Handled == false)
+                {
+                    e.Handled = true;
+                    (Window.Current.Content as Frame).GoBack();
+                }
+            }
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -45,6 +63,7 @@ namespace UWPApp.View
             {
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Visible;
+                SystemNavigationManager.GetForCurrentView().BackRequested += goBackToLastPage;
             }
             else
             {
@@ -53,7 +72,12 @@ namespace UWPApp.View
             }
 
             currentRecord = ((Model.Record)e.Parameter);
-            //await (new MessageDialog(currentRecord.image + currentRecord.audio + currentRecord.video)).ShowAsync();
+            if (currentRecord.favoriteNum == "-1")
+            {
+                isEdit = true;
+                currentRecord.favoriteNum = "0";
+            }
+            //await (new MessageDialog(currentRecord.audio)).ShowAsync();
 
             //同步顶栏信息
             avatarInTopBar.ImageSource = currentRecord.userAvatar;
@@ -77,7 +101,7 @@ namespace UWPApp.View
                 newSource = new BitmapImage(new Uri(_newSource));
                 image1.Source = image2.Source = newSource;
             }
-            else if (currentRecord.audio != "")
+            if (currentRecord.audio != "")
             {
                 //宽屏
                 musicBg1.Visibility = Visibility.Visible;
@@ -90,7 +114,7 @@ namespace UWPApp.View
                 string newSource = Helper.NetworkHelper.SERVER + currentRecord.audio;
                 mediaElement1.Source = mediaElement2.Source = new Uri(newSource);
             }
-            else if (currentRecord.video != "")
+            if (currentRecord.video != "")
             {
                 //宽屏
                 mediaElement1.Visibility = Visibility.Visible;
@@ -104,7 +128,7 @@ namespace UWPApp.View
                 mediaElement1.Source = mediaElement2.Source = new Uri(newSource);
             }
             //同步点赞数
-            favoriteNum.Text = currentRecord.favoriteNum.ToString();
+            favoriteNum.Text = currentRecord.favoriteNum;
             //解析点赞头像组
             JObject res = await Helper.NetworkHelper.recordDetail(currentRecord.id);
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
@@ -142,10 +166,19 @@ namespace UWPApp.View
 
         private void ElementMediaEnded(object sender, RoutedEventArgs e)
         {
-            if (mediaElement1.Visibility == Visibility.Visible)
+            if (pause1.Visibility == Visibility.Visible)
+            {
                 mediaElement1.Stop();
-            else
+                play1.Visibility = Visibility.Visible;
+                pause1.Visibility = Visibility.Collapsed;
+            }
+
+            if (pause2.Visibility == Visibility.Visible)
+            {
                 mediaElement2.Stop();
+                play2.Visibility = Visibility.Visible;
+                pause2.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SeekMediaPosition(object sender, RangeBaseValueChangedEventArgs e)
@@ -161,32 +194,33 @@ namespace UWPApp.View
 
         private void playClick(object sender, RoutedEventArgs e)
         {
-            if (mediaElement1.Visibility == Visibility.Visible)
+            if (widePart.Visibility == Visibility.Visible)
             {
                 mediaElement1.Play();
                 play1.Visibility = Visibility.Collapsed;
-                stop1.Visibility = Visibility.Visible;
-            } else
+                pause1.Visibility = Visibility.Visible;
+            }
+            if (narrowPart.Visibility == Visibility.Visible)
             {
                 mediaElement2.Play();
                 play2.Visibility = Visibility.Collapsed;
-                stop2.Visibility = Visibility.Visible;
+                pause2.Visibility = Visibility.Visible;
             }
         }
 
-        private void stopClick(object sender, RoutedEventArgs e)
+        private void pauseClick(object sender, RoutedEventArgs e)
         {
-            if (mediaElement1.Visibility == Visibility.Visible)
+            if (widePart.Visibility == Visibility.Visible)
             {
-                mediaElement1.Stop();
+                mediaElement1.Pause();
                 play1.Visibility = Visibility.Visible;
-                stop1.Visibility = Visibility.Collapsed;
+                pause1.Visibility = Visibility.Collapsed;
             }
-            else
+            if (narrowPart.Visibility == Visibility.Visible)
             {
-                mediaElement2.Stop();
+                mediaElement2.Pause();
                 play2.Visibility = Visibility.Visible;
-                stop2.Visibility = Visibility.Collapsed;
+                pause2.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -197,18 +231,24 @@ namespace UWPApp.View
             timer.Tick += (ss, ee) =>
             {
                 //显示当前视频进度
-                if (mediaElement1.Visibility == Visibility.Visible)
-                {
-                    var ts = mediaElement1.Position;
-                    timelineSlider1.Value = ts.TotalMilliseconds;
-                }
-                else
-                {
-                    var ts = mediaElement2.Position;
-                    timelineSlider2.Value = ts.TotalMilliseconds;
-                }
+                var ts1 = mediaElement1.Position;
+                timelineSlider1.Value = ts1.TotalMilliseconds;
+                var ts2 = mediaElement2.Position;
+                timelineSlider2.Value = ts2.TotalMilliseconds;
             };
             timer.Start();
+        }
+
+        //把输入的结果转换成int类型
+        int toInt(string str)
+        {                 
+            int temp = 0, tobe = 0;
+            for (int i = 0; i < str.Length; ++i)
+            {
+                temp = str[i] - '0';
+                tobe = tobe * 10 + temp;
+            }
+            return tobe;
         }
 
         //实现点赞功能
@@ -217,10 +257,9 @@ namespace UWPApp.View
             JObject res = await Helper.NetworkHelper.favorite(Store.UserStore.onlineId, currentRecord.id);
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
-                //Store.RecordStore.loadAllRecordsFromServer();
-                //Store.RecordStore.loadUserRecordsFromServer();
+                Store.RecordStore.loadAllRecordsFromServer();
 
-                long tmp = (currentRecord.favoriteNum) + 1;
+                int tmp = toInt(currentRecord.favoriteNum) + 1;
                 favoriteNum.Text = tmp.ToString();
                 //在下方点赞列表显示头像
                 Ellipse ellipse = new Ellipse();

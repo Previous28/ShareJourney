@@ -87,7 +87,6 @@ namespace UWPApp
                 // register a global listener for the BackRequested event
                 // You can register for this event in each page if you want to exclude specific pages from back navigation, 
                 // or you want to execute page-level code before displaying the page.
-                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             }
         }
 
@@ -116,21 +115,6 @@ namespace UWPApp
             Helper.LocalDBHelper.savaAllRecordsToDB();
 
             deferral.Complete();
-        }
-
-        private void OnBackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame == null)
-                return;
-
-            // Navigate back if possible, and if the event has not 
-            // already been handled .
-            if (rootFrame.CanGoBack && e.Handled == false)
-            {
-                e.Handled = true;
-                rootFrame.GoBack();
-            }
         }
     }
 }

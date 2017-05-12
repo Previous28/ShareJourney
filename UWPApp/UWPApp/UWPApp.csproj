@@ -133,8 +133,6 @@
     <Content Include="Assets\imagePicked.png" />
     <Content Include="Assets\main.jpg" />
     <Content Include="Assets\musicBg.jpg" />
-    <Content Include="Assets\play.png" />
-    <Content Include="Assets\stop.png" />
     <Content Include="Assets\testPic1.jpg" />
     <Content Include="Assets\tile-bg-large.jpg" />
     <Content Include="Assets\tile-bg-mid.jpg" />

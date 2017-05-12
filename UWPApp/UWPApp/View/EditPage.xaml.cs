@@ -54,7 +54,7 @@ namespace UWPApp.View
                     isAudio = false;
                     audio.Source = new BitmapImage(new Uri("ms-appx:///Assets/imageForEditPage2.png"));
                 }
-                else if (isVideo)
+                if (isVideo)
                 {
                     isVideo = false;
                     video.Source = new BitmapImage(new Uri("ms-appx:///Assets/imageForEditPage3.png"));
@@ -79,7 +79,7 @@ namespace UWPApp.View
                     isImage = false;
                     image.Source = new BitmapImage(new Uri("ms-appx:///Assets/imageForEditPage1.png"));
                 }
-                else if (isVideo)
+                if (isVideo)
                 {
                     isVideo = false;
                     video.Source = new BitmapImage(new Uri("ms-appx:///Assets/imageForEditPage3.png"));
@@ -104,7 +104,7 @@ namespace UWPApp.View
                     isImage = false;
                     image.Source = new BitmapImage(new Uri("ms-appx:///Assets/imageForEditPage1.png"));
                 }
-                else if (isAudio)
+                if (isAudio)
                 {
                     isAudio = false;
                     audio.Source = new BitmapImage(new Uri("ms-appx:///Assets/imageForEditPage2.png"));
@@ -159,8 +159,9 @@ namespace UWPApp.View
                         newRecord1.content = content.Text;
                         newRecord1.date = System.DateTime.Now.ToString();
                         newRecord1.nickname = Store.UserStore.nickname;
-                        newRecord1.favoriteNum = 0;
+                        newRecord1.favoriteNum = "-1";
                         newRecord1.userAvatar = Store.UserStore.avatar;
+                        newRecord1.image = newRecord1.audio = newRecord1.video = "";
                         if (isImage) newRecord1.image = res2["path"].ToString();
                         else if (isAudio) newRecord1.audio = res2["path"].ToString();
                         else if (isVideo) newRecord1.video = res2["path"].ToString();
@@ -169,9 +170,10 @@ namespace UWPApp.View
                     else
                     {
                         await (new MessageDialog("上传失败！")).ShowAsync();
+                        await Helper.NetworkHelper.deleteRecord(Store.UserStore.onlineId, records["_id"].ToString());
                     }
                 }
-                
+
                 if (res2 == null)
                 {
                     await (new MessageDialog("发布成功！")).ShowAsync();
@@ -183,7 +185,7 @@ namespace UWPApp.View
                     newRecord.image = newRecord.video = newRecord.audio = "";
                     newRecord.date = System.DateTime.Now.ToString();
                     newRecord.nickname = Store.UserStore.nickname;
-                    newRecord.favoriteNum = 0;
+                    newRecord.favoriteNum = "-1";
                     newRecord.userAvatar = Store.UserStore.avatar;
                     (Window.Current.Content as Frame).Navigate(typeof(DetailPage), newRecord);
                 }

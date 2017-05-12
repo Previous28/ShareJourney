@@ -74,7 +74,7 @@
             </Grid.ColumnDefinitions>
 
             <!--分享图片模块-->
-            <Image Grid.Column="0" Width="580" Height="350" Margin="40, 30, 0, 30" x:Name="image1" Visibility="Collapsed"></Image>
+            <Image Grid.Column="0" Width="580"  Margin="40, 30, 0, 30" x:Name="image1" Visibility="Collapsed"></Image>
 
             <!--媒体播放器-->
             <MediaElement Grid.Column="0" x:Name="mediaElement1" AutoPlay = "False" Margin="40, 30, 0, 30"
@@ -91,10 +91,10 @@
                     Margin="105, 310, 20, 0" ValueChanged="SeekMediaPosition" Height="37" Visibility="Collapsed"/>
 
             <!--开始和暂停按钮-->
-            <AppBarButton Icon="Play" Grid.Column="0" Click="playClick" Height="50" Width="60" Margin="40,305,20,0"
+            <AppBarButton Icon="Play" Grid.Column="0" Click="playClick" Height="50" Width="60" Margin="50,333,20,0"
                           x:Name="play1" Visibility="Collapsed"/>
-            <AppBarButton Icon="Stop" Grid.Column="0" Click="stopClick" Height="50" Width="60" Margin="40,305,20,0"
-                          x:Name="stop1" Visibility="Collapsed"/>
+            <AppBarButton Icon="Pause" Grid.Column="0" Click="pauseClick" Height="50" Width="60" Margin="50,333,20,0"
+                          x:Name="pause1" Visibility="Collapsed"/>
 
             <!--文字描述部分-->
             <ScrollViewer Grid.Column="1" VerticalAlignment="Top" Margin="0 30 0 30">
@@ -155,11 +155,11 @@
                 <!--开始和暂停按钮-->
                 <AppBarButton Icon="Play" Grid.Row="1" Click="playClick" Height="50" Width="60" Margin="0, 240, 420, 0"
                           x:Name="play2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
-                <AppBarButton Icon="Stop" Grid.Row="1" Click="stopClick" Height="50" Width="60" Margin="0, 240, 420, 0"
-                          x:Name="stop2" Visibility="Collapsed"/>
+                <AppBarButton Icon="Pause" Grid.Row="1" Click="pauseClick" Height="50" Width="60" Margin="0, 240, 420, 0"
+                          x:Name="pause2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
 
                 <!--分享图片模块-->
-                <Image Grid.Row="1" Width="480" Margin="0 20 0 20" Height="288" x:Name="image2"
+                <Image Grid.Row="1" Width="480" Margin="0 20 0 20" x:Name="image2"
                            HorizontalAlignment="Center" Visibility="Collapsed"></Image>
             </Grid>
         </ScrollViewer>
