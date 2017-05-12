@@ -112,7 +112,10 @@ namespace UWPApp
             var deferral = e.SuspendingOperation.GetDeferral();
 
             // 缓存应用数据到本地数据库
-            Helper.LocalDBHelper.savaAllRecordsToDB();
+            if (Helper.LocalDBHelper.connection != null)
+            {
+                Helper.LocalDBHelper.savaAllRecordsToDB();
+            }
 
             deferral.Complete();
         }

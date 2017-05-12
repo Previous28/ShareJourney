@@ -7,7 +7,7 @@ namespace UWPApp.Helper
     class LocalDBHelper
     {
         // 数据库连接
-        public static SQLiteConnection connection;
+        public static SQLiteConnection connection = null;
 
         // 初始化数据库
         public static void initDB()

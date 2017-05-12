@@ -60,7 +60,16 @@ namespace UWPApp.View
                 // 数据合法，进行注册
                 else
                 {
-                    JObject res = await Helper.NetworkHelper.signup(username.Text, password.Password, nickname.Text);
+                    JObject res = null;
+                    try
+                    {
+                        res = await Helper.NetworkHelper.signup(username.Text, password.Password, nickname.Text);
+                    }
+                    catch (Exception)
+                    {
+                        await (new MessageDialog("网络错误或服务器关闭！")).ShowAsync();
+                        return;
+                    }
                     if (res["result"].ToString() == Helper.NetworkHelper.FAILED)
                     {
                         await (new MessageDialog("注册失败！该用户名已被注册！")).ShowAsync();
@@ -83,7 +92,16 @@ namespace UWPApp.View
                 // 进行登录
                 else
                 {
-                    JObject res = await Helper.NetworkHelper.signin(username.Text, password.Password);
+                    JObject res = null;
+                    try
+                    {
+                        res = await Helper.NetworkHelper.signin(username.Text, password.Password);
+                    }
+                    catch (Exception)
+                    {
+                        await (new MessageDialog("网络错误或服务器关闭！")).ShowAsync();
+                        return;
+                    }
                     if (res["result"].ToString() == Helper.NetworkHelper.FAILED)
                     {
                         await (new MessageDialog("登录失败！请输入正确的用户名密码！")).ShowAsync();

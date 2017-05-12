@@ -12,7 +12,7 @@ namespace UWPApp.Helper
     class NetworkHelper
     {
         // 服务器域名配置
-        public static string SERVER = "http://118.89.35.155:8080";
+        public static string SERVER = "http://192.168.199.135:8080";
 
         // 操作结果成功与失败的标志
         public static string SUCCESS = "ok";
