@@ -46,6 +46,7 @@ namespace UWPApp.View
         private void updateAllRecords(object sender, RoutedEventArgs e)
         {
             Store.RecordStore.loadAllRecordsFromServer();
+            Helper.LocalDBHelper.savaAllRecordsToDB();
         }
 
         // 点赞

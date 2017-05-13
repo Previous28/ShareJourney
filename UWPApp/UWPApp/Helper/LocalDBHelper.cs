@@ -1,5 +1,6 @@
 ﻿using SQLitePCL;
 using System;
+using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.Helper
@@ -67,11 +68,6 @@ namespace UWPApp.Helper
         // 将所有记录存储到本地数据库
         public static void savaAllRecordsToDB()
         {
-            // 先清空数据库原有记录
-            using (var statement = connection.Prepare("DELETE FROM Records"))
-            {
-                statement.Step();
-            }
             // 将所有记录存储到本地数据库
             for (int i = 0; i < Store.RecordStore.allRecords.Count; ++i)
             {
@@ -92,6 +88,16 @@ namespace UWPApp.Helper
                     statement.Bind(11, Store.RecordStore.allRecords[i].userAvatar.UriSource.ToString());
                     statement.Step();
                 }
+            }
+        }
+
+        // 删除某条记录
+        public static void deleteRecord(string recordId)
+        {
+            Debug.WriteLine("DELETE FROM Records WHERE Id='" + recordId + "'");
+            using (var statement = connection.Prepare("DELETE FROM Records WHERE Id='" + recordId + "'"))
+            {
+                statement.Step();
             }
         }
     }

@@ -147,6 +147,7 @@ namespace UWPApp.View
                     if (res2["result"].ToString() == Helper.NetworkHelper.SUCCESS)
                     {
                         await (new MessageDialog("发布成功！")).ShowAsync();
+                        Store.RecordStore.loadAllRecordsFromServer();
                         Model.Record newRecord1 = new Model.Record();
                         newRecord1.id = records["_id"].ToString();
                         newRecord1.userId = Store.UserStore.userId;
@@ -172,6 +173,7 @@ namespace UWPApp.View
                 if (res2 == null)
                 {
                     await (new MessageDialog("发布成功！")).ShowAsync();
+                    Store.RecordStore.loadAllRecordsFromServer();
                     Model.Record newRecord = new Model.Record();
                     newRecord.id = records["_id"].ToString();
                     newRecord.userId = Store.UserStore.userId;

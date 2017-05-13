@@ -143,6 +143,7 @@ namespace UWPApp.View
         private void updateAllRecords(object sender, RoutedEventArgs e)
         {
             Store.RecordStore.loadAllRecordsFromServer();
+            Helper.LocalDBHelper.savaAllRecordsToDB();
         }
 
         // 点赞
@@ -167,7 +168,8 @@ namespace UWPApp.View
             JObject res = await Helper.NetworkHelper.deleteRecord(Store.UserStore.onlineId, recordId);
             if (res["result"].ToString() == Helper.NetworkHelper.SUCCESS)
             {
-                Store.RecordStore.loadAllRecordsFromServer();
+                Helper.LocalDBHelper.deleteRecord(recordId);
+                Helper.LocalDBHelper.loadAllRecordsFromDB();
             }
             else
             {
