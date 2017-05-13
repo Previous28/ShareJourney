@@ -101,7 +101,8 @@ namespace UWPApp.View
                 //窄屏
                 player2.Visibility = Visibility.Visible;
                 string newSource = Helper.NetworkHelper.SERVER + currentRecord.audio;
-                player1.Source = player2.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
+                player1.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
+                player2.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
             }
             if (currentRecord.video != "")
             {
@@ -112,7 +113,8 @@ namespace UWPApp.View
                 player2.Visibility = Visibility.Visible;
                 
                 string newSource = Helper.NetworkHelper.SERVER + currentRecord.video;
-                player1.Source = player2.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
+                player1.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
+                player2.Source = MediaSource.CreateFromUri(new Uri(newSource, UriKind.Absolute));
             }
             //同步点赞数
             favoriteNum.Text = currentRecord.favoriteNum;
