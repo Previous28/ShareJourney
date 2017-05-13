@@ -1,6 +1,5 @@
 ﻿using SQLitePCL;
 using System;
-using System.Diagnostics;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPApp.Helper
@@ -94,7 +93,6 @@ namespace UWPApp.Helper
         // 删除某条记录
         public static void deleteRecord(string recordId)
         {
-            Debug.WriteLine("DELETE FROM Records WHERE Id='" + recordId + "'");
             using (var statement = connection.Prepare("DELETE FROM Records WHERE Id='" + recordId + "'"))
             {
                 statement.Step();
